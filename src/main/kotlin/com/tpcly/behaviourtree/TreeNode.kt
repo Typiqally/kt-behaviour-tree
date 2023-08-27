@@ -1,7 +1,5 @@
-package com.tpcly.osrs.api.tree
+package com.tpcly.behaviourtree
 
 interface TreeNode {
-    fun <T : TreeNode> initNode(node: T, init: T.() -> Unit): T
-
     fun execute(): Status
 }

@@ -1,11 +1,5 @@
-package com.tpcly.osrs.api.tree
+package com.tpcly.behaviourtree
 
-abstract class Decorator : TreeNode {
-    lateinit var leaf: TreeNode
-
-    override fun <T : TreeNode> initNode(node: T, init: T.() -> Unit): T {
-        node.init()
-        leaf = node
-        return node
-    }
+@BehaviourTreeDslMarker
+abstract class Decorator(val child: TreeNode) : TreeNode {
 }

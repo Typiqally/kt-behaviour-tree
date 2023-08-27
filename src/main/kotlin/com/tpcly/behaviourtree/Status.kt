@@ -1,7 +1,8 @@
-package com.tpcly.osrs.api.tree
+package com.tpcly.behaviourtree
 
 enum class Status {
     SUCCESS,
-    Failure,
-    Running
+    FAILURE,
+    RUNNING,
+    EXIT
 }
