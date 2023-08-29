@@ -9,21 +9,21 @@ import com.tpcly.behaviourtree.leaf.Condition
 import com.tpcly.behaviourtree.leaf.Leaf
 import com.tpcly.behaviourtree.leaf.Perform
 
-fun sequence(random: Boolean = false, init: Sequence.() -> Unit) = initNode(Sequence(random), init)
+fun sequence(name: String = "", random: Boolean = false, init: Sequence.() -> Unit) = initNode(Sequence(name, random), init)
 
-fun selector(random: Boolean = false, init: Selector.() -> Unit) = initNode(Selector(random), init)
+fun selector(name: String = "", random: Boolean = false, init: Selector.() -> Unit) = initNode(Selector(name, random), init)
 
-fun inverter(init: () -> TreeNode) = Inverter(init())
+fun inverter(name: String = "", init: () -> TreeNode) = Inverter(name, init())
 
-fun succeeder(init: () -> TreeNode): Succeeder = Succeeder(init())
+fun succeeder(name: String = "", init: () -> TreeNode): Succeeder = Succeeder(name, init())
 
-fun repeatUntil(status: Status, init: () -> TreeNode) = RepeatUntil(status, init())
+fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = RepeatUntil(name, status, init())
 
-fun leaf(func: () -> Status) = Leaf(func)
+fun leaf(name: String = "", func: () -> Status) = Leaf(name, func)
 
-fun condition(predicate: () -> Boolean) = Condition(predicate)
+fun condition(name: String = "", predicate: () -> Boolean) = Condition(name, predicate)
 
-fun perform(func: () -> Unit): Perform = Perform(func)
+fun perform(name: String = "", func: () -> Unit): Perform = Perform(name, func)
 
 private fun <T : TreeNode> initNode(node: T, init: T.() -> Unit): T {
     node.init()

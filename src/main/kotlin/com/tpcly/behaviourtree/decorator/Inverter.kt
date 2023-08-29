@@ -5,9 +5,9 @@ import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNode
 
 
-class Inverter(child: TreeNode) : Decorator(child) {
-    override fun execute(): Status {
-        return when (val result = child.execute()) {
+class Inverter(name: String, child: TreeNode) : Decorator(name, child) {
+    override fun execute(callStack: ArrayDeque<TreeNode>): Status {
+        return when (val result = child.executeTrace(callStack)) {
             Status.SUCCESS -> Status.FAILURE
             Status.FAILURE -> Status.SUCCESS
             else -> result

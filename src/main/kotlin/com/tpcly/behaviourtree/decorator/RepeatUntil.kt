@@ -4,12 +4,14 @@ import com.tpcly.behaviourtree.Decorator
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNode
 
-class RepeatUntil(private val status: Status, child: TreeNode) : Decorator(child) {
-    override fun execute(): Status {
-        var result = child.execute()
+class RepeatUntil(name: String = "", private val status: Status, child: TreeNode) : Decorator(name, child) {
+    override fun execute(callStack: ArrayDeque<TreeNode>): Status {
+        trace(callStack)
+
+        var result = child.executeTrace(callStack)
 
         while (result != status) {
-            result = child.execute()
+            result = child.executeTrace(callStack)
         }
 
         return result
