@@ -3,17 +3,20 @@ package com.tpcly.behaviourtree.decorator
 import com.tpcly.behaviourtree.Decorator
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNode
+import com.tpcly.behaviourtree.TreeNodeResult
 
 class RepeatUntil(name: String = "", private val status: Status, child: TreeNode) : Decorator(name, child) {
-    override fun execute(callStack: ArrayDeque<TreeNode>): Status {
-        trace(callStack)
+    override fun execute(): TreeNodeResult {
+        val results = mutableListOf<TreeNodeResult>()
 
-        var result = child.executeTrace(callStack)
+        var result = child.execute()
+        results.add(result)
 
-        while (result != status) {
-            result = child.executeTrace(callStack)
+        while (result.status != status) {
+            result = child.execute()
+            results.add(result)
         }
 
-        return result
+        return TreeNodeResult(this, result.status, results)
     }
 }

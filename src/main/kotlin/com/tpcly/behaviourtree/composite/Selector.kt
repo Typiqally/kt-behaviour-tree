@@ -2,24 +2,27 @@ package com.tpcly.behaviourtree.composite
 
 import com.tpcly.behaviourtree.Composite
 import com.tpcly.behaviourtree.Status
-import com.tpcly.behaviourtree.TreeNode
+import com.tpcly.behaviourtree.TreeNodeResult
 
 class Selector(name: String = "", private val random: Boolean) : Composite(name) {
-    override fun execute(callStack: ArrayDeque<TreeNode>): Status {
+    override fun execute(): TreeNodeResult {
         val children = if (random) {
             children.shuffled()
         } else {
             children
         }
 
-        for (child in children) {
-            val result = child.executeTrace(callStack)
+        val results = mutableListOf<TreeNodeResult>()
 
-            if (result == Status.SUCCESS) {
-                return result
+        for (child in children) {
+            val result = child.execute()
+            results.add(result)
+
+            if (result.status == Status.SUCCESS) {
+                return TreeNodeResult(this, result.status, results)
             }
         }
 
-        return Status.FAILURE
+        return TreeNodeResult.failure(this, results)
     }
 }
