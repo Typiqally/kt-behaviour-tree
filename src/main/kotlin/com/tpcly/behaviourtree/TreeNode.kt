@@ -1,5 +1,7 @@
 package com.tpcly.behaviourtree
 
 interface TreeNode {
-    fun execute(): Status
+    val name: String
+
+    fun execute(): TreeNodeResult
 }
