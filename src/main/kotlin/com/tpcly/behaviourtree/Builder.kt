@@ -14,6 +14,8 @@ fun selector(name: String = "", random: Boolean = false, init: Selector.() -> Un
 
 fun inverter(name: String = "", init: () -> TreeNode) = Inverter(name, init())
 
+fun TreeNode.inverted() = Inverter(name, this)
+
 fun succeeder(name: String = "", init: () -> TreeNode): Succeeder = Succeeder(name, init())
 
 fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = RepeatUntil(name, status, init())
