@@ -1,13 +1,12 @@
 package com.tpcly.behaviourtree
 
+import com.tpcly.behaviourtree.action.Condition
+import com.tpcly.behaviourtree.action.Perform
 import com.tpcly.behaviourtree.composite.Selector
 import com.tpcly.behaviourtree.composite.Sequence
 import com.tpcly.behaviourtree.decorator.Inverter
 import com.tpcly.behaviourtree.decorator.RepeatUntil
 import com.tpcly.behaviourtree.decorator.Succeeder
-import com.tpcly.behaviourtree.leaf.Condition
-import com.tpcly.behaviourtree.leaf.Leaf
-import com.tpcly.behaviourtree.leaf.Perform
 
 fun sequence(name: String = "", random: Boolean = false, init: Sequence.() -> Unit) = initNode(Sequence(name, random), init)
 
@@ -19,7 +18,11 @@ fun succeeder(name: String = "", init: () -> TreeNode): Succeeder = Succeeder(na
 
 fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = RepeatUntil(name, status, init())
 
-fun leaf(name: String = "", func: () -> Status) = Leaf(name, func)
+fun action(name: String = "", func: () -> Status) = object : Action(name) {
+    override fun action(): Status {
+        return func()
+    }
+}
 
 fun condition(name: String = "", predicate: () -> Boolean) = Condition(name, predicate)
 

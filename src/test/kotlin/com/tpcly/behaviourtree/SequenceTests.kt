@@ -74,7 +74,7 @@ internal class SequenceTests {
 
         val sequence = sequence {
             +mockNode
-            +sequence { +leaf { Status.FAILURE } }
+            +sequence { +action { Status.FAILURE } }
             +mockNode
         }
 

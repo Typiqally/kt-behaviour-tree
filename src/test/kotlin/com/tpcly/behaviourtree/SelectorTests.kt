@@ -74,7 +74,7 @@ internal class SelectorTests {
 
         val selector = selector {
             +mockNode
-            +selector { +leaf { Status.FAILURE } }
+            +selector { +action { Status.FAILURE } }
             +mockNode
         }
 
