@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.0"
+    `maven-publish`
 }
 
 group = "com.tpcly"
@@ -16,4 +17,30 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven("https://maven.tpcly.com/releases") {
+            name = "Release"
+            credentials {
+                username = System.getenv("PUBLISH_USERNAME")
+                password = System.getenv("PUBLISH_PASSWORD")
+            }
+        }
+    }
+    repositories {
+        maven("https://maven.tpcly.com/snapshots") {
+            name = "Snapshot"
+            credentials {
+                username = System.getenv("PUBLISH_USERNAME")
+                password = System.getenv("PUBLISH_PASSWORD")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["kotlin"])
+        }
+    }
 }
