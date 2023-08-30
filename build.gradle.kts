@@ -1,5 +1,3 @@
-import java.net.URI
-
 plugins {
     kotlin("jvm") version "1.9.0"
     `maven-publish`
@@ -23,12 +21,20 @@ tasks.test {
 
 publishing {
     repositories {
-        maven {
-            name = "GitHub"
-            url = URI("https://maven.pkg.github.com/Typiqally/kt-behaviour-tree")
+        maven("https://maven.tpcly.com/releases") {
+            name = "Release"
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = System.getenv("PUBLISH_USERNAME")
+                password = System.getenv("PUBLISH_PASSWORD")
+            }
+        }
+    }
+    repositories {
+        maven("https://maven.tpcly.com/snapshots") {
+            name = "Snapshot"
+            credentials {
+                username = System.getenv("PUBLISH_USERNAME")
+                password = System.getenv("PUBLISH_PASSWORD")
             }
         }
     }

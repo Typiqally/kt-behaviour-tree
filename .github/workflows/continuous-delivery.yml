@@ -2,6 +2,7 @@ name: Continuous delivery
 on:
   release:
     types: [created]
+
 jobs:
   publish:
     name: Publish
@@ -16,6 +17,7 @@ jobs:
       - name: Publish package
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
         with:
-          arguments: publish
+          arguments: publishAllPublicationsToReleaseRepository
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_USERNAME: ${{ secrets.PUBLISH_USERNAME }}
+          PUBLISH_PASSWORD: ${{ secrets.PUBLISH_PASSWORD }}
