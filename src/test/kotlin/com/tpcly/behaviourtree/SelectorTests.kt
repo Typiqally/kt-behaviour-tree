@@ -85,4 +85,28 @@ internal class SelectorTests {
         assertEquals(Status.SUCCESS, result.status)
         verify(exactly = 1) { mockNode.execute() }
     }
+
+    @Test
+    fun testAbort() {
+        // Arrange
+        val mockNode = mockk<TreeNode> {
+            every { execute() } returns TreeNodeResult.failure(this)
+        }
+
+        val selector = selector {
+            +mockNode
+            +sequence {
+                +action { Status.ABORT }
+                +mockNode
+            }
+            +mockNode
+        }
+
+        // Act
+        val result = selector.execute()
+
+        // Assert
+        assertEquals(Status.ABORT, result.status)
+        verify(exactly = 1) { mockNode.execute() }
+    }
 }

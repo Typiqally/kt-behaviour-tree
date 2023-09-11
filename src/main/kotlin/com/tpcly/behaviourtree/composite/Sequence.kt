@@ -18,7 +18,7 @@ class Sequence(name: String = "", private val random: Boolean) : Composite(name)
             val result = child.execute()
             results.add(result)
 
-            if (result.status == Status.FAILURE) {
+            if (result.status == Status.FAILURE || result.status == Status.ABORT) {
                 return TreeNodeResult(this, result.status, results)
             }
         }

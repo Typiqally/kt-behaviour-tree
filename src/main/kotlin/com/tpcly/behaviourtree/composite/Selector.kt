@@ -18,7 +18,7 @@ class Selector(name: String = "", private val random: Boolean) : Composite(name)
             val result = child.execute()
             results.add(result)
 
-            if (result.status == Status.SUCCESS) {
+            if (result.status == Status.SUCCESS || result.status == Status.ABORT) {
                 return TreeNodeResult(this, result.status, results)
             }
         }

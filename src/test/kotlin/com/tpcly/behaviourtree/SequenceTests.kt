@@ -85,4 +85,29 @@ internal class SequenceTests {
         assertEquals(Status.FAILURE, result.status)
         verify(exactly = 1) { mockNode.execute() }
     }
+
+    @Test
+    fun testAbort() {
+        // Arrange
+        val mockNode = mockk<TreeNode> {
+            every { execute() } returns TreeNodeResult.success(this)
+        }
+
+        val sequence = sequence {
+            +mockNode
+            +sequence {
+                +mockNode
+                +action { Status.ABORT }
+                +mockNode
+            }
+            +mockNode
+        }
+
+        // Act
+        val result = sequence.execute()
+
+        // Assert
+        assertEquals(Status.ABORT, result.status)
+        verify(exactly = 2) { mockNode.execute() }
+    }
 }
