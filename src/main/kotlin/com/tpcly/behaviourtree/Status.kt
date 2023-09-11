@@ -4,5 +4,5 @@ enum class Status {
     SUCCESS,
     FAILURE,
     RUNNING,
-    EXIT
+    ABORT
 }

@@ -18,7 +18,7 @@ internal class SucceederTests {
     fun testExecutionRunning() = testExecution(Status.RUNNING)
 
     @Test
-    fun testExecutionExit() = testExecution(Status.EXIT)
+    fun testExecutionExit() = testExecution(Status.ABORT)
 
     private fun testExecution(inputStatus: Status) {
         // Arrange
