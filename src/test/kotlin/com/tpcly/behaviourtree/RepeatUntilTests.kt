@@ -21,7 +21,8 @@ internal class RepeatUntilTests {
         }
 
         // Act
-        val result = repeater.execute()
+        val blackboard = mutableMapOf<String, Any>()
+        val result = repeater.execute(blackboard)
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
@@ -45,7 +46,8 @@ internal class RepeatUntilTests {
         }
 
         // Act
-        val result = repeater.execute()
+        val blackboard = mutableMapOf<String, Any>()
+        val result = repeater.execute(blackboard)
 
         // Assert
         assertEquals(Status.ABORT, result.status)

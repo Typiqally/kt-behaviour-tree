@@ -23,7 +23,7 @@ internal class SucceederTests {
     private fun testExecution(inputStatus: Status) {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute() } returns TreeNodeResult(this, inputStatus)
+            every { execute(any()) } returns TreeNodeResult(this, inputStatus)
         }
 
         val selector = succeeder {
@@ -31,10 +31,11 @@ internal class SucceederTests {
         }
 
         // Act
-        val result = selector.execute()
+        val blackboard = mutableMapOf<String, Any>()
+        val result = selector.execute(blackboard)
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 1) { mockNode.execute() }
+        verify(exactly = 1) { mockNode.execute(any()) }
     }
 }

@@ -9,9 +9,9 @@ class Gate(
     val predicate: () -> Boolean,
     child: TreeNode
 ) : Decorator(name, child) {
-    override fun execute(): TreeNodeResult {
+    override fun execute(blackboard: MutableMap<String, Any>): TreeNodeResult {
         if (predicate()) {
-            val result = child.execute()
+            val result = child.execute(blackboard)
             return TreeNodeResult(this, result.status, listOf(result))
         }
 

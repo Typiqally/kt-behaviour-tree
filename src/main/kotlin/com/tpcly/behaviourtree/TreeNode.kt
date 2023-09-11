@@ -3,5 +3,5 @@ package com.tpcly.behaviourtree
 interface TreeNode {
     val name: String
 
-    fun execute(): TreeNodeResult
+    fun execute(blackboard: MutableMap<String, Any>): TreeNodeResult
 }

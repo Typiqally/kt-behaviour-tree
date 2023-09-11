@@ -5,7 +5,7 @@ import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
 class Sequence(name: String = "", private val random: Boolean) : Composite(name) {
-    override fun execute(): TreeNodeResult {
+    override fun execute(blackboard: MutableMap<String, Any>): TreeNodeResult {
         val children = if (random) {
             children.shuffled()
         } else {
@@ -15,7 +15,7 @@ class Sequence(name: String = "", private val random: Boolean) : Composite(name)
         val results = mutableListOf<TreeNodeResult>()
 
         for (child in children) {
-            val result = child.execute()
+            val result = child.execute(blackboard)
             results.add(result)
 
             if (result.status == Status.FAILURE || result.status == Status.ABORT) {
