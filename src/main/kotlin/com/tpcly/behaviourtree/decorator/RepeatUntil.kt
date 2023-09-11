@@ -12,7 +12,7 @@ class RepeatUntil(name: String = "", private val status: Status, child: TreeNode
         var result = child.execute()
         results.add(result)
 
-        while (result.status != status) {
+        while (result.status != status && result.status != Status.ABORT) {
             result = child.execute()
             results.add(result)
         }
