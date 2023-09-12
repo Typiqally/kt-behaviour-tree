@@ -12,8 +12,8 @@ class Blackboard {
         observers.remove(observer)
     }
 
-    inline operator fun <reified T> get(key: String): T {
-        val value = values[key]
+    inline operator fun <reified T> get(key: String): T? {
+        val value = values[key] ?: return null
 
         return if (value is T) {
             value
