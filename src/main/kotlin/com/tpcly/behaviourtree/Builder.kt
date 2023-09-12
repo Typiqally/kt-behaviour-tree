@@ -23,6 +23,8 @@ fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = Repea
 
 fun gate(name: String = "", predicate: (blackboard: Blackboard) -> Boolean, init: () -> TreeNode) = Gate(name, predicate, init())
 
+inline fun <reified T : Any> gate(name: String = "", key: String, value: T, init: () -> TreeNode) = Gate(name, { it.get<T>(key) == value }, init())
+
 fun action(name: String = "", func: (blackboard: Blackboard) -> Status) = object : Action(name) {
     override fun action(blackboard: Blackboard): Status {
         return func(blackboard)
