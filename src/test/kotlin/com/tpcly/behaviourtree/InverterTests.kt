@@ -18,7 +18,7 @@ internal class InverterTests {
     fun testExecutionRunning() = testExecution(Status.RUNNING, Status.RUNNING)
 
     @Test
-    fun testExecutionExit() = testExecution(Status.EXIT, Status.EXIT)
+    fun testExecutionExit() = testExecution(Status.ABORT, Status.ABORT)
 
     private fun testExecution(inputStatus: Status, expectedOutputStatus: Status) {
         // Arrange
