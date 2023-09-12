@@ -14,13 +14,12 @@ internal class SequenceTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val sequence = sequence {
+        val node = sequence {
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = sequence.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
@@ -34,13 +33,12 @@ internal class SequenceTests {
             every { execute(any()) } returns TreeNodeResult.failure(this)
         }
 
-        val sequence = sequence {
+        val node = sequence {
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = sequence.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
@@ -54,14 +52,13 @@ internal class SequenceTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val sequence = sequence {
+        val node = sequence {
             +mockNode
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = sequence.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
@@ -75,15 +72,14 @@ internal class SequenceTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val sequence = sequence {
+        val node = sequence {
             +mockNode
             +sequence { +action { Status.FAILURE } }
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = sequence.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
@@ -97,7 +93,7 @@ internal class SequenceTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val sequence = sequence {
+        val node = sequence {
             +mockNode
             +sequence {
                 +mockNode
@@ -108,8 +104,7 @@ internal class SequenceTests {
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = sequence.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.ABORT, result.status)

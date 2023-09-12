@@ -26,13 +26,12 @@ internal class SucceederTests {
             every { execute(any()) } returns TreeNodeResult(this, inputStatus)
         }
 
-        val selector = succeeder {
+        val node = succeeder {
             mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = selector.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)

@@ -27,13 +27,12 @@ internal class InverterTests {
         }
 
 
-        val selector = inverter {
+        val node = inverter {
             mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = selector.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(expectedOutputStatus, result.status)

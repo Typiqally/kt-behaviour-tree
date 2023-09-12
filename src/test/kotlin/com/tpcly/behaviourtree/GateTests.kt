@@ -26,13 +26,12 @@ internal class GateTests {
             every { execute(any()) } returns TreeNodeResult(this, inputStatus)
         }
 
-        val gate = gate(predicate = { true }) {
+        val node = gate(predicate = { true }) {
             mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = gate.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(inputStatus, result.status)
@@ -46,13 +45,12 @@ internal class GateTests {
             every { execute(any()) } returns TreeNodeResult(this, Status.SUCCESS)
         }
 
-        val gate = gate(predicate = { false }) {
+        val node = gate(predicate = { false }) {
             mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = gate.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.FAILURE, result.status)

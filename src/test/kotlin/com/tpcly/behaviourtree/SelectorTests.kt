@@ -14,13 +14,12 @@ internal class SelectorTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val selector = selector {
+        val node = selector {
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = selector.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
@@ -34,13 +33,12 @@ internal class SelectorTests {
             every { execute(any()) } returns TreeNodeResult.failure(this)
         }
 
-        val selector = selector {
+        val node = selector {
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = selector.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
@@ -54,14 +52,13 @@ internal class SelectorTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val selector = selector {
+        val node = selector {
             +mockNode
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = selector.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
@@ -75,15 +72,14 @@ internal class SelectorTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val selector = selector {
+        val node = selector {
             +mockNode
             +selector { +action { Status.FAILURE } }
             +mockNode
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = selector.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
@@ -97,7 +93,7 @@ internal class SelectorTests {
             every { execute(any()) } returns TreeNodeResult.failure(this)
         }
 
-        val selector = selector {
+        val node = selector {
             +mockNode
             +sequence {
                 +action { Status.ABORT }
@@ -107,8 +103,7 @@ internal class SelectorTests {
         }
 
         // Act
-        val blackboard = Blackboard()
-        val result = selector.execute(blackboard)
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.ABORT, result.status)
