@@ -1,7 +1,6 @@
 package com.tpcly.behaviourtree
 
-class Blackboard {
-    val values = mutableMapOf<String, Any>()
+class Blackboard(val values: MutableMap<String, Any> = mutableMapOf()) {
     private val observers = mutableListOf<BlackboardObserver>()
 
     fun attach(observer: BlackboardObserver) {
