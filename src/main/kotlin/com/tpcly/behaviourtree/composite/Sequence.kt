@@ -1,11 +1,12 @@
 package com.tpcly.behaviourtree.composite
 
+import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Composite
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
 class Sequence(name: String = "", private val random: Boolean) : Composite(name) {
-    override fun execute(blackboard: MutableMap<String, Any>): TreeNodeResult {
+    override fun execute(blackboard: Blackboard): TreeNodeResult {
         val children = if (random) {
             children.shuffled()
         } else {

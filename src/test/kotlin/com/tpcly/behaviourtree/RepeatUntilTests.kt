@@ -21,7 +21,7 @@ internal class RepeatUntilTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = repeater.execute(blackboard)
 
         // Assert
@@ -46,7 +46,7 @@ internal class RepeatUntilTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = repeater.execute(blackboard)
 
         // Assert

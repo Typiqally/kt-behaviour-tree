@@ -23,15 +23,15 @@ fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = Repea
 
 fun gate(name: String = "", predicate: () -> Boolean, init: () -> TreeNode) = Gate(name, predicate, init())
 
-fun action(name: String = "", func: (blackboard: MutableMap<String, Any>) -> Status) = object : Action(name) {
-    override fun action(blackboard: MutableMap<String, Any>): Status {
+fun action(name: String = "", func: (blackboard: Blackboard) -> Status) = object : Action(name) {
+    override fun action(blackboard: Blackboard): Status {
         return func(blackboard)
     }
 }
 
-fun condition(name: String = "", predicate: (blackboard: MutableMap<String, Any>) -> Boolean) = Condition(name, predicate)
+fun condition(name: String = "", predicate: (blackboard: Blackboard) -> Boolean) = Condition(name, predicate)
 
-fun perform(name: String = "", func: (blackboard: MutableMap<String, Any>) -> Unit): Perform = Perform(name, func)
+fun perform(name: String = "", func: (blackboard: Blackboard) -> Unit): Perform = Perform(name, func)
 
 private fun <T : TreeNode> initNode(node: T, init: T.() -> Unit): T {
     node.init()

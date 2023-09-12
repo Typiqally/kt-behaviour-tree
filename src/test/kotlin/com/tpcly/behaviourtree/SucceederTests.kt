@@ -31,7 +31,7 @@ internal class SucceederTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = selector.execute(blackboard)
 
         // Assert

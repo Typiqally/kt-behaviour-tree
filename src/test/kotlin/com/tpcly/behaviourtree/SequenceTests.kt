@@ -19,7 +19,7 @@ internal class SequenceTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = sequence.execute(blackboard)
 
         // Assert
@@ -39,7 +39,7 @@ internal class SequenceTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = sequence.execute(blackboard)
 
         // Assert
@@ -60,7 +60,7 @@ internal class SequenceTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = sequence.execute(blackboard)
 
         // Assert
@@ -82,7 +82,7 @@ internal class SequenceTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = sequence.execute(blackboard)
 
         // Assert
@@ -108,7 +108,7 @@ internal class SequenceTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = sequence.execute(blackboard)
 
         // Assert

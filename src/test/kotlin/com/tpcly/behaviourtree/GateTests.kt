@@ -31,7 +31,7 @@ internal class GateTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = gate.execute(blackboard)
 
         // Assert
@@ -51,7 +51,7 @@ internal class GateTests {
         }
 
         // Act
-        val blackboard = mutableMapOf<String, Any>()
+        val blackboard = Blackboard()
         val result = gate.execute(blackboard)
 
         // Assert
