@@ -7,11 +7,11 @@ import com.tpcly.behaviourtree.TreeNodeResult
 
 class Gate(
     name: String,
-    val predicate: () -> Boolean,
+    val predicate: (blackboard: Blackboard) -> Boolean,
     child: TreeNode
 ) : Decorator(name, child) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
-        if (predicate()) {
+        if (predicate(blackboard)) {
             val result = child.execute(blackboard)
             return TreeNodeResult(this, result.status, listOf(result))
         }

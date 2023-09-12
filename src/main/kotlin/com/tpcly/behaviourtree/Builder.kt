@@ -21,7 +21,7 @@ fun succeeder(name: String = "", init: () -> TreeNode): Succeeder = Succeeder(na
 
 fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = RepeatUntil(name, status, init())
 
-fun gate(name: String = "", predicate: () -> Boolean, init: () -> TreeNode) = Gate(name, predicate, init())
+fun gate(name: String = "", predicate: (blackboard: Blackboard) -> Boolean, init: () -> TreeNode) = Gate(name, predicate, init())
 
 fun action(name: String = "", func: (blackboard: Blackboard) -> Status) = object : Action(name) {
     override fun action(blackboard: Blackboard): Status {
