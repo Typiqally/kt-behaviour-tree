@@ -24,6 +24,7 @@ supported are:
     - Inverter
     - Succeeder
     - RepeatUntil
+    - Gate
 - **Actions**
     - Perform
     - Condition
@@ -229,6 +230,32 @@ val example = sequence {
 
 Regardless of what status the condition returns, it will always return a success status and therefore finish the entire
 sequence.
+
+#### Gate
+
+Executes child only when condition is met, return status of the child if executed, otherwise failure.
+
+```kotlin
+val example = gate(predicate = { true }) {
+  perform {
+    println("Hello, world")
+  }
+}
+
+// Status: Success (child return status),
+// Output: Hello, world
+```
+
+```kotlin
+val example = gate(predicate = { false }) {
+    perform {
+        println("Hello, world")
+    }
+}
+
+// Status: Failure
+// Output:
+```
 
 ## License
 
