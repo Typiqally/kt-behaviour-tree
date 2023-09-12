@@ -39,4 +39,21 @@ internal class BlackboardTests {
         assertEquals(true, result)
         verify(exactly = 1) { mapMock["test"] }
     }
+
+    @Test
+    fun testObserverUpdate() {
+        // Arrange
+        val observerMock = mockk<BlackboardObserver> {
+            every { update(any(), any()) } answers {}
+        }
+
+        val blackboard = Blackboard()
+        blackboard.attach(observerMock)
+
+        // Act
+        blackboard["test"] = true
+
+        // Assert
+        verify(exactly = 1) { observerMock.update("test", true) }
+    }
 }
