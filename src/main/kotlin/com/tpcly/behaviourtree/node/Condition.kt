@@ -1,6 +1,5 @@
-package com.tpcly.behaviourtree.action
+package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Action
 import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 

@@ -1,8 +1,6 @@
-package com.tpcly.behaviourtree.decorator
+package com.tpcly.behaviourtree.node
 
 import com.tpcly.behaviourtree.Blackboard
-import com.tpcly.behaviourtree.Decorator
-import com.tpcly.behaviourtree.TreeNode
 import com.tpcly.behaviourtree.TreeNodeResult
 
 class Gate(

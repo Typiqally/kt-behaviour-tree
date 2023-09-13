@@ -1,5 +1,7 @@
 package com.tpcly.behaviourtree
 
+import com.tpcly.behaviourtree.node.TreeNode
+
 data class TreeNodeResult(
     val parent: TreeNode,
     val status: Status,

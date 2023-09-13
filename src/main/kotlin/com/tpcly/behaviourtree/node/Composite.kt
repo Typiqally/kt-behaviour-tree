@@ -1,4 +1,6 @@
-package com.tpcly.behaviourtree
+package com.tpcly.behaviourtree.node
+
+import com.tpcly.behaviourtree.BehaviourTreeDslMarker
 
 @BehaviourTreeDslMarker
 abstract class Composite(override val name: String) : TreeNode {

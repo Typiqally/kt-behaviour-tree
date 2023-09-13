@@ -1,5 +1,6 @@
 package com.tpcly.behaviourtree
 
+import com.tpcly.behaviourtree.node.TreeNode
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

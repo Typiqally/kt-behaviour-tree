@@ -1,11 +1,10 @@
-package com.tpcly.behaviourtree.composite
+package com.tpcly.behaviourtree.node
 
 import com.tpcly.behaviourtree.Blackboard
-import com.tpcly.behaviourtree.Composite
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
-class Selector(name: String = "", private val random: Boolean) : Composite(name) {
+class Sequence(name: String = "", private val random: Boolean) : Composite(name) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val children = if (random) {
             children.shuffled()
@@ -19,11 +18,11 @@ class Selector(name: String = "", private val random: Boolean) : Composite(name)
             val result = child.execute(blackboard)
             results.add(result)
 
-            if (result.status == Status.SUCCESS || result.status == Status.ABORT) {
+            if (result.status == Status.FAILURE || result.status == Status.ABORT) {
                 return TreeNodeResult(this, result.status, results)
             }
         }
 
-        return TreeNodeResult.failure(this, results)
+        return TreeNodeResult.success(this, results)
     }
 }

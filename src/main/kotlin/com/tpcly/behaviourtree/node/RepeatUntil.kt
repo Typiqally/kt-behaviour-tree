@@ -1,4 +1,4 @@
-package com.tpcly.behaviourtree.decorator
+package com.tpcly.behaviourtree.node
 
 import com.tpcly.behaviourtree.*
 
