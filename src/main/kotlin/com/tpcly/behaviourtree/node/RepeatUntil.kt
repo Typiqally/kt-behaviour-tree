@@ -17,13 +17,11 @@ class RepeatUntil(
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
 
-        var result = child.execute(blackboard)
-        results.add(result)
-
-        while (result.status != status && result.status != Status.ABORT) {
+        var result: TreeNodeResult
+        do {
             result = child.execute(blackboard)
             results.add(result)
-        }
+        } while (result.status != status && result.status != Status.ABORT)
 
         return TreeNodeResult(this, result.status, results)
     }
