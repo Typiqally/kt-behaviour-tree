@@ -4,7 +4,16 @@ import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
-class RepeatUntil(name: String, private val status: Status, child: TreeNode) : Decorator(name, child) {
+/**
+ * A decorator node that repeatedly executes its child until the specified [status] is returned
+ *
+ * @property status the status to loop until
+ */
+class RepeatUntil(
+    name: String,
+    private val status: Status,
+    child: TreeNode
+) : Decorator(name, child) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
 

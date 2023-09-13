@@ -4,7 +4,15 @@ import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
-class Sequence(name: String, private val random: Boolean) : Composite(name) {
+/**
+ * A composite node which executes its child nodes in order until one fails or all succeed, similar to an `and` operator
+ *
+ * @property random randomize the order of children before executing
+ */
+class Sequence(
+    name: String,
+    private val random: Boolean
+) : Composite(name) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val children = if (random) {
             children.shuffled()

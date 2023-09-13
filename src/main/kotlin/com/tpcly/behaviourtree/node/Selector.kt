@@ -4,6 +4,11 @@ import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
+/**
+ * A composite node which executes its child nodes in order until one succeeds or all fail, similar to an `or` operator
+ *
+ * @property random randomize the order of children before executing
+ */
 class Selector(name: String, private val random: Boolean) : Composite(name) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val children = if (random) {
