@@ -8,7 +8,7 @@ internal class RepeatUntilTests {
     fun testStatus() {
         // Arrange
         var count = 0
-        val repeater = repeatUntil(status = Status.SUCCESS) {
+        val node = repeatUntil(status = Status.SUCCESS) {
             action {
                 when (count) {
                     3 -> Status.SUCCESS
@@ -21,7 +21,7 @@ internal class RepeatUntilTests {
         }
 
         // Act
-        val result = repeater.execute()
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
@@ -32,7 +32,7 @@ internal class RepeatUntilTests {
     fun testAbort() {
         // Arrange
         var count = 0
-        val repeater = repeatUntil(status = Status.SUCCESS) {
+        val node = repeatUntil(status = Status.SUCCESS) {
             action {
                 when (count) {
                     3 -> Status.ABORT
@@ -45,7 +45,7 @@ internal class RepeatUntilTests {
         }
 
         // Act
-        val result = repeater.execute()
+        val result = node.execute()
 
         // Assert
         assertEquals(Status.ABORT, result.status)

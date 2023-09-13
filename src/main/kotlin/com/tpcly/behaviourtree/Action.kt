@@ -2,9 +2,9 @@ package com.tpcly.behaviourtree
 
 @BehaviourTreeDslMarker
 abstract class Action(override val name: String) : TreeNode {
-    abstract fun action(): Status
+    abstract fun action(blackboard: Blackboard): Status
 
-    override fun execute(): TreeNodeResult {
-        return TreeNodeResult(this, action())
+    override fun execute(blackboard: Blackboard): TreeNodeResult {
+        return TreeNodeResult(this, action(blackboard))
     }
 }
