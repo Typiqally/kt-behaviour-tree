@@ -4,7 +4,7 @@ import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
-class Selector(name: String = "", private val random: Boolean) : Composite(name) {
+class Selector(name: String, private val random: Boolean) : Composite(name) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val children = if (random) {
             children.shuffled()

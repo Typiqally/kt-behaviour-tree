@@ -1,8 +1,10 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.*
+import com.tpcly.behaviourtree.Blackboard
+import com.tpcly.behaviourtree.Status
+import com.tpcly.behaviourtree.TreeNodeResult
 
-class RepeatUntil(name: String = "", private val status: Status, child: TreeNode) : Decorator(name, child) {
+class RepeatUntil(name: String, private val status: Status, child: TreeNode) : Decorator(name, child) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
 

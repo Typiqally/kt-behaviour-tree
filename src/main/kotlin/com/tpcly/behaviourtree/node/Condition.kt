@@ -4,7 +4,7 @@ import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 
 class Condition(
-    override val name: String = "",
+    override val name: String,
     val predicate: (blackboard: Blackboard) -> Boolean
 ) : Action(name) {
     override fun action(blackboard: Blackboard): Status {
