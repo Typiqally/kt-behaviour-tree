@@ -5,15 +5,18 @@ import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
 /**
- * A decorator node that repeatedly executes its child until the specified [status] is returned
+ * A decorator node that repeatedly executes its child until the specified [stopCondition] is met
  *
- * @property status the status to loop until
+ * @property stopCondition the condition which determines when the loop terminates
  */
 class RepeatUntil(
     name: String,
-    private val status: Status,
+    private val stopCondition: (TreeNodeResult) -> Boolean,
     child: TreeNode
 ) : Decorator(name, child) {
+    constructor(name: String, status: Status, child: TreeNode)
+            : this(name, { it.status == status }, child)
+
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
 
@@ -21,7 +24,7 @@ class RepeatUntil(
         do {
             result = child.execute(blackboard)
             results.add(result)
-        } while (result.status != status && result.status != Status.ABORT)
+        } while (!stopCondition(result) && result.status != Status.ABORT)
 
         return TreeNodeResult(this, result.status, results)
     }
