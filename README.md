@@ -236,7 +236,7 @@ sequence.
 Executes child only when condition is met, return status of the child if executed, otherwise failure.
 
 ```kotlin
-val example = gate(predicate = { true }) {
+val example = gate(validate = { true }) {
   perform {
     println("Hello, world")
   }
@@ -247,7 +247,7 @@ val example = gate(predicate = { true }) {
 ```
 
 ```kotlin
-val example = gate(predicate = { false }) {
+val example = gate(validate = { false }) {
     perform {
         println("Hello, world")
     }

@@ -21,7 +21,7 @@ fun succeeder(name: String = "", init: () -> TreeNode): Succeeder = Succeeder(na
 
 fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = RepeatUntil(name, status, init())
 
-fun gate(name: String = "", predicate: (blackboard: Blackboard) -> Boolean, init: () -> TreeNode) = Gate(name, predicate, init())
+fun gate(name: String = "", validate: (blackboard: Blackboard) -> Boolean, init: () -> TreeNode) = Gate(name, validate, init())
 
 inline fun <reified T : Any> gate(name: String = "", key: String, value: T, init: () -> TreeNode) = Gate(name, { it.get<T>(key) == value }, init())
 
