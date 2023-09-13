@@ -8,7 +8,7 @@ internal class RepeatUntilTests {
     fun testStatus() {
         // Arrange
         var count = 0
-        val node = repeatUntil(status = Status.SUCCESS) {
+        val node = repeatUntil(Status.SUCCESS) {
             action {
                 when (count) {
                     3 -> Status.SUCCESS
@@ -32,7 +32,7 @@ internal class RepeatUntilTests {
     fun testAbort() {
         // Arrange
         var count = 0
-        val node = repeatUntil(status = Status.SUCCESS) {
+        val node = repeatUntil(Status.SUCCESS) {
             action {
                 when (count) {
                     3 -> Status.ABORT
