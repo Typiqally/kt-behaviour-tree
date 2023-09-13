@@ -65,7 +65,7 @@ internal class GateTests {
         }
 
         val blackboardMock = mockk<Blackboard> {
-            every { this@mockk.get<Any>("test") } returns true
+            every { this@mockk["test"] } returns true
         }
 
         val node = gate(key = "test", value = true) {
@@ -77,7 +77,7 @@ internal class GateTests {
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 1) { blackboardMock.get<Any>("test") }
+        verify(exactly = 1) { blackboardMock["test"] }
         verify(exactly = 1) { nodeMock.execute(any()) }
     }
 
@@ -89,7 +89,7 @@ internal class GateTests {
         }
 
         val blackboardMock = mockk<Blackboard> {
-            every { this@mockk.get<Any>("test") } returns false
+            every { this@mockk["test"] } returns false
         }
 
         val node = gate(key = "test", value = true) {
@@ -101,7 +101,7 @@ internal class GateTests {
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
-        verify(exactly = 1) { blackboardMock.get<Any>("test") }
+        verify(exactly = 1) { blackboardMock["test"] }
         verify(exactly = 0) { nodeMock.execute(any()) }
     }
 }

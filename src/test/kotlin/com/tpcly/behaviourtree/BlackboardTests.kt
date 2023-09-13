@@ -33,7 +33,7 @@ internal class BlackboardTests {
         val blackboard = Blackboard(mapMock)
 
         // Act
-        val result = blackboard.get<Boolean>("test")
+        val result = blackboard["test"]
 
         // Assert
         assertEquals(true, result)
