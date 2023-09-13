@@ -2,9 +2,9 @@ package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.*
 
-fun sequence(name: String = "", random: Boolean = false, init: Sequence.() -> Unit) = initNode(Sequence(name, random), init)
+fun sequence(random: Boolean = false, name: String = "", init: Sequence.() -> Unit) = initNode(Sequence(name, random), init)
 
-fun selector(name: String = "", random: Boolean = false, init: Selector.() -> Unit) = initNode(Selector(name, random), init)
+fun selector(random: Boolean = false, name: String = "", init: Selector.() -> Unit) = initNode(Selector(name, random), init)
 
 fun inverter(name: String = "", init: () -> TreeNode) = Inverter(name, init())
 
@@ -12,11 +12,11 @@ fun TreeNode.inverted() = Inverter(name, this)
 
 fun succeeder(name: String = "", init: () -> TreeNode): Succeeder = Succeeder(name, init())
 
-fun repeatUntil(name: String = "", status: Status, init: () -> TreeNode) = RepeatUntil(name, status, init())
+fun repeatUntil(status: Status, name: String = "", init: () -> TreeNode) = RepeatUntil(name, status, init())
 
-fun gate(name: String = "", validate: (blackboard: Blackboard) -> Boolean, init: () -> TreeNode) = Gate(name, validate, init())
+fun gate(validate: (blackboard: Blackboard) -> Boolean, name: String = "", init: () -> TreeNode) = Gate(name, validate, init())
 
-fun gate(name: String = "", key: String, value: Any, init: () -> TreeNode) = Gate(name, { it[key] == value }, init())
+fun gate(key: String, value: Any, name: String = "", init: () -> TreeNode) = Gate(name, { it[key] == value }, init())
 
 fun action(name: String = "", func: (blackboard: Blackboard) -> Status) = object : Action(name) {
     override fun action(blackboard: Blackboard): Status {
@@ -24,7 +24,7 @@ fun action(name: String = "", func: (blackboard: Blackboard) -> Status) = object
     }
 }
 
-fun condition(name: String = "", predicate: (blackboard: Blackboard) -> Boolean) = Condition(name, predicate)
+fun condition(predicate: (blackboard: Blackboard) -> Boolean, name: String = "") = Condition(name, predicate)
 
 fun perform(name: String = "", func: (blackboard: Blackboard) -> Unit): Perform = Perform(name, func)
 

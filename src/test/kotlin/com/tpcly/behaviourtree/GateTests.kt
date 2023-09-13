@@ -27,7 +27,7 @@ internal class GateTests {
             every { execute(any()) } returns TreeNodeResult(this, inputStatus)
         }
 
-        val node = gate(validate = { true }) {
+        val node = gate({ true }) {
             mockNode
         }
 
@@ -46,7 +46,7 @@ internal class GateTests {
             every { execute(any()) } returns TreeNodeResult(this, Status.SUCCESS)
         }
 
-        val node = gate(validate = { false }) {
+        val node = gate({ false }) {
             mockNode
         }
 
@@ -69,7 +69,7 @@ internal class GateTests {
             every { this@mockk["test"] } returns true
         }
 
-        val node = gate(key = "test", value = true) {
+        val node = gate("test", true) {
             nodeMock
         }
 
@@ -93,7 +93,7 @@ internal class GateTests {
             every { this@mockk["test"] } returns false
         }
 
-        val node = gate(key = "test", value = true) {
+        val node = gate("test", true) {
             nodeMock
         }
 
