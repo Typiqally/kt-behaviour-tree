@@ -2,9 +2,9 @@ package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.*
 
-fun sequence(random: Boolean = false, name: String = "", init: Sequence.() -> Unit) = initNode(Sequence(name, random), init)
+fun sequence(order: ExecutionOrder = ExecutionOrder.IN_ORDER, name: String = "", init: Sequence.() -> Unit) = initNode(Sequence(name, order), init)
 
-fun selector(random: Boolean = false, name: String = "", init: Selector.() -> Unit) = initNode(Selector(name, random), init)
+fun selector(order: ExecutionOrder = ExecutionOrder.IN_ORDER, name: String = "", init: Selector.() -> Unit) = initNode(Selector(name, order), init)
 
 fun inverter(name: String = "", init: () -> TreeNode) = Inverter(name, init())
 
