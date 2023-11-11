@@ -6,7 +6,7 @@ package com.tpcly.behaviourtree
  *
  * @property values an initial map of values for the blackboard
  */
-class Blackboard(private val values: MutableMap<String, Any> = mutableMapOf()) {
+class Blackboard(val values: MutableMap<String, Any> = mutableMapOf()) {
     private val observers = mutableListOf<BlackboardObserver>()
 
     /**
@@ -21,6 +21,10 @@ class Blackboard(private val values: MutableMap<String, Any> = mutableMapOf()) {
      */
     fun detach(observer: BlackboardObserver) {
         observers.remove(observer)
+    }
+
+    inline fun <reified T : Any> getValue(key: String): T {
+        return values[key] as T
     }
 
     /**
