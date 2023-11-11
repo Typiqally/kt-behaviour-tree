@@ -19,4 +19,13 @@ data class TreeNodeResult(
 
         fun failure(parent: TreeNode, children: List<TreeNodeResult>? = null) = TreeNodeResult(parent, Status.FAILURE, children)
     }
+
+    fun stackTrace(indent: Int = 0): Sequence<String> = sequence<String> {
+        yield("${"\t".repeat(indent)}> ${parent.javaClass.simpleName} :${parent.name} ${status.name}")
+
+        // Append children if they exist
+        children?.forEach {
+            yieldAll(it.stackTrace(indent + 1))
+        }
+    }
 }
