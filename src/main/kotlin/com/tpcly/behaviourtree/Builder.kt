@@ -2,9 +2,9 @@ package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.*
 
-fun sequence(order: ExecutionOrder = ExecutionOrder.IN_ORDER, name: String = "", init: Sequence.() -> Unit) = initNode(Sequence(name, order), init)
+fun sequence(name: String = "", order: ExecutionOrder = ExecutionOrder.IN_ORDER, init: Sequence.() -> Unit) = initNode(Sequence(name, order), init)
 
-fun selector(order: ExecutionOrder = ExecutionOrder.IN_ORDER, name: String = "", init: Selector.() -> Unit) = initNode(Selector(name, order), init)
+fun selector(name: String = "", order: ExecutionOrder = ExecutionOrder.IN_ORDER, init: Selector.() -> Unit) = initNode(Selector(name, order), init)
 
 fun inverter(name: String = "", init: () -> TreeNode) = Inverter(name, init())
 
@@ -26,7 +26,7 @@ fun action(name: String = "", func: (blackboard: Blackboard) -> Status) = object
     }
 }
 
-fun condition(predicate: (blackboard: Blackboard) -> Boolean, name: String = "") = Condition(name, predicate)
+fun condition(name: String = "", predicate: (blackboard: Blackboard) -> Boolean) = Condition(name, predicate)
 
 fun perform(name: String = "", func: (blackboard: Blackboard) -> Unit): Perform = Perform(name, func)
 
