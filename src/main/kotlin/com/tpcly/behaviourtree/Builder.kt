@@ -12,9 +12,10 @@ fun TreeNode.inverted() = Inverter(name, this)
 
 fun succeeder(name: String = "", init: () -> TreeNode): Succeeder = Succeeder(name, init())
 
-fun repeatUntil(stopCondition: (TreeNodeResult) -> Boolean, name: String = "", init: () -> TreeNode) = RepeatUntil(name, stopCondition, init())
+fun repeatUntil(stopCondition: (TreeNodeResult) -> Boolean, limit: Int = 10, name: String = "", init: () -> TreeNode) =
+    RepeatUntil(name, stopCondition, limit, init())
 
-fun repeatUntil(status: Status, name: String = "", init: () -> TreeNode) = RepeatUntil(name, status, init())
+fun repeatUntil(status: Status, limit: Int = 10, name: String = "", init: () -> TreeNode) = RepeatUntil(name, status, limit, init())
 
 fun repeatWhen(continueCondition: () -> Boolean, name: String = "", init: () -> TreeNode) = RepeatWhen(name, continueCondition, init())
 
