@@ -24,6 +24,7 @@ supported are:
     - Inverter
     - Succeeder
     - RepeatUntil
+    - RepeatWhen
     - Gate
 - **Actions**
     - Perform
@@ -210,6 +211,27 @@ reachable. If the door is initially not within reach, the agent will attempt to 
 challenge or perform other relevant actions to enable access to the door. This looping behavior will persist
 indefinitely until the objective of making the door reachable is achieved.
 
+#### RepeatWhen
+
+Repeats the execution of its child node a certain number of times given the condition holds true.
+
+```kotlin
+fun needsHealing(): Boolean {
+    // Check if an actor needs healing
+    return false
+}
+
+val example = repeatWhen({ needsHealing() }) {
+    perform {
+        // Some healing action
+    }
+}
+```
+
+In this theoretical scenario, the agent will engage in a continuous loop, repeating its actions given that the actor
+healing. If the actor does the healing action, and is still in need of healing, it will repeat it until it no longer
+needs healing.
+
 #### Succeeder
 
 Similar to the `perform` action node, the succeeder will turn the status of any child into a success status.
@@ -237,9 +259,9 @@ Executes child only when condition is met, return status of the child if execute
 
 ```kotlin
 val example = gate(validate = { true }) {
-  perform {
-    println("Hello, world")
-  }
+    perform {
+        println("Hello, world")
+    }
 }
 
 // Status: Success (child return status),
