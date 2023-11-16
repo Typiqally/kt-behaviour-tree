@@ -12,21 +12,29 @@ import com.tpcly.behaviourtree.TreeNodeResult
 class RepeatWhen(
     name: String,
     private val continueCondition: () -> Boolean,
+    private val limit: Int,
     child: TreeNode
 ) : Decorator(name, child) {
     override fun execute(blackboard: Blackboard): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
+        var iteration = 0
 
-        while (continueCondition()) {
+        while (continueCondition() && iteration < limit) {
             val result = child.execute(blackboard)
             results.add(result)
 
             if (result.status == Status.ABORT) {
                 break
             }
+
+            iteration++
         }
 
-        val status = results.lastOrNull()?.status ?: Status.SUCCESS
+        val status = if (iteration >= limit) {
+            Status.FAILURE
+        } else {
+            results.lastOrNull()?.status ?: Status.SUCCESS
+        }
 
         return TreeNodeResult(this, status, results)
     }

@@ -68,4 +68,23 @@ internal class RepeatWhenTests {
         assertEquals(Status.ABORT, result.status)
         assertEquals(3, count)
     }
+
+    @Test
+    fun testLimit() {
+        // Arrange
+        val mockNode = mockk<TreeNode> {
+            every { execute(any()) } returns TreeNodeResult.success(this)
+        }
+
+        val node = repeatWhen({ true }, 10) {
+            mockNode
+        }
+
+        // Act
+        val result = node.execute()
+
+        // Assert
+        assertEquals(Status.FAILURE, result.status)
+        verify(exactly = 10) { mockNode.execute(any()) }
+    }
 }
