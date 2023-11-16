@@ -19,6 +19,8 @@ fun repeatUntil(status: Status, limit: Int = 10, name: String = "", init: () -> 
 
 fun repeatWhen(continueCondition: () -> Boolean, limit: Int = 10, name: String = "", init: () -> TreeNode) = RepeatWhen(name, continueCondition, limit, init())
 
+fun repeatWhen(continueCondition: () -> Boolean, name: String = "", init: () -> TreeNode) = RepeatWhen(name, continueCondition, init())
+
 fun gate(validate: (blackboard: Blackboard) -> Boolean, name: String = "", init: () -> TreeNode) = Gate(name, validate, init())
 
 fun gate(key: String, value: Any, name: String = "", init: () -> TreeNode) = Gate(name, { it[key] == value }, init())
