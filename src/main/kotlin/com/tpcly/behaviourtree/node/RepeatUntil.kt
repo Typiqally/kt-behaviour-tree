@@ -30,6 +30,12 @@ class RepeatUntil(
             iteration++
         } while (!stopCondition(result) && result.status != Status.ABORT && iteration < limit)
 
-        return TreeNodeResult(this, result.status, results)
+        val status = if (iteration >= limit) {
+            Status.FAILURE
+        } else {
+            result.status
+        }
+
+        return TreeNodeResult(this, status, results)
     }
 }

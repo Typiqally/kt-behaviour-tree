@@ -30,7 +30,11 @@ class RepeatWhen(
             iteration++
         }
 
-        val status = results.lastOrNull()?.status ?: Status.SUCCESS
+        val status = if (iteration >= limit) {
+            Status.FAILURE
+        } else {
+            results.lastOrNull()?.status ?: Status.SUCCESS
+        }
 
         return TreeNodeResult(this, status, results)
     }
