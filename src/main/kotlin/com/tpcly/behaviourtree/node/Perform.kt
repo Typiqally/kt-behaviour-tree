@@ -1,7 +1,6 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
-import com.tpcly.behaviourtree.Status
+import com.tpcly.behaviourtree.TreeNodeResult
 
 /**
  * An action node which performs an action and always returns a successful result
@@ -10,10 +9,11 @@ import com.tpcly.behaviourtree.Status
  */
 class Perform(
     override val name: String,
-    val func: (blackboard: Blackboard) -> Unit
+    val func: () -> Unit
 ) : Action(name) {
-    override fun action(blackboard: Blackboard): Status {
-        func(blackboard)
-        return Status.SUCCESS
+    override fun execute(): TreeNodeResult {
+        func()
+        return TreeNodeResult.success(this)
     }
+
 }

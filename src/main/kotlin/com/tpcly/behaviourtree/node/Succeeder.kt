@@ -1,6 +1,5 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.TreeNodeResult
 
 /**
@@ -10,8 +9,8 @@ class Succeeder(
     name: String,
     child: TreeNode
 ) : Decorator(name, child) {
-    override fun execute(blackboard: Blackboard): TreeNodeResult {
-        val result = child.execute(blackboard)
+    override fun execute(): TreeNodeResult {
+        val result = child.execute()
         return TreeNodeResult.success(this, listOf(result))
     }
 }

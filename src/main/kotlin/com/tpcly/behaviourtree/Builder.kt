@@ -19,19 +19,17 @@ fun repeatUntil(status: Status, limit: Int = 10, name: String = "", init: () -> 
 
 fun repeatWhen(continueCondition: () -> Boolean, limit: Int = 10, name: String = "", init: () -> TreeNode) = RepeatWhen(name, continueCondition, limit, init())
 
-fun gate(validate: (blackboard: Blackboard) -> Boolean, name: String = "", init: () -> TreeNode) = Gate(name, validate, init())
+fun gate(validate: () -> Boolean, name: String = "", init: () -> TreeNode) = Gate(name, validate, init())
 
-fun gate(key: String, value: Any, name: String = "", init: () -> TreeNode) = Gate(name, { it[key] == value }, init())
-
-fun action(name: String = "", func: (blackboard: Blackboard) -> Status) = object : Action(name) {
-    override fun action(blackboard: Blackboard): Status {
-        return func(blackboard)
+fun action(name: String = "", func: () -> Status) = object : Action(name) {
+    override fun execute(): TreeNodeResult {
+        return TreeNodeResult(this, func())
     }
 }
 
-fun condition(name: String = "", predicate: (blackboard: Blackboard) -> Boolean) = Condition(name, predicate)
+fun condition(name: String = "", predicate: () -> Boolean) = Condition(name, predicate)
 
-fun perform(name: String = "", func: (blackboard: Blackboard) -> Unit): Perform = Perform(name, func)
+fun perform(name: String = "", func: () -> Unit): Perform = Perform(name, func)
 
 private fun <T : TreeNode> initNode(node: T, init: T.() -> Unit): T {
     node.init()

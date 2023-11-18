@@ -1,7 +1,7 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
+import com.tpcly.behaviourtree.TreeNodeResult
 
 /**
  * An action node which turns a boolean result into a status, with true being successful and false being failure
@@ -10,12 +10,15 @@ import com.tpcly.behaviourtree.Status
  */
 class Condition(
     override val name: String,
-    val predicate: (blackboard: Blackboard) -> Boolean
+    val predicate: () -> Boolean
 ) : Action(name) {
-    override fun action(blackboard: Blackboard): Status {
-        return when (predicate(blackboard)) {
+    override fun execute(): TreeNodeResult {
+        val status = when (predicate()) {
             true -> Status.SUCCESS
             false -> Status.FAILURE
         }
+
+        return TreeNodeResult(this, status)
     }
+
 }

@@ -60,7 +60,7 @@ internal class RepeatUntilTests {
     fun testLimit() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = repeatUntil(Status.FAILURE, 10) {
@@ -72,6 +72,6 @@ internal class RepeatUntilTests {
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
-        verify(exactly = 10) { mockNode.execute(any()) }
+        verify(exactly = 10) { mockNode.execute() }
     }
 }

@@ -12,7 +12,7 @@ internal class SequenceTests {
     fun testExecutionSuccess() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = sequence {
@@ -24,14 +24,14 @@ internal class SequenceTests {
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 
     @Test
     fun testExecutionFailure() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.failure(this)
+            every { execute() } returns TreeNodeResult.failure(this)
         }
 
         val node = sequence {
@@ -43,14 +43,14 @@ internal class SequenceTests {
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 
     @Test
     fun testOrder() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = sequence {
@@ -63,14 +63,14 @@ internal class SequenceTests {
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 2) { mockNode.execute(any()) }
+        verify(exactly = 2) { mockNode.execute() }
     }
 
     @Test
     fun testEarlyExit() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = sequence {
@@ -84,14 +84,14 @@ internal class SequenceTests {
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 
     @Test
     fun testAbort() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = sequence {
@@ -109,6 +109,6 @@ internal class SequenceTests {
 
         // Assert
         assertEquals(Status.ABORT, result.status)
-        verify(exactly = 2) { mockNode.execute(any()) }
+        verify(exactly = 2) { mockNode.execute() }
     }
 }

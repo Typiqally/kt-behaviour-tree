@@ -30,7 +30,7 @@ internal class RepeatWhenTests {
     fun testAlreadySatisfied() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.failure(this)
+            every { execute() } returns TreeNodeResult.failure(this)
         }
 
         val node = repeatWhen({ false }) {
@@ -42,7 +42,7 @@ internal class RepeatWhenTests {
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 0) { mockNode.execute(any()) }
+        verify(exactly = 0) { mockNode.execute() }
     }
 
     @Test
@@ -73,7 +73,7 @@ internal class RepeatWhenTests {
     fun testLimit() {
         // Arrange
         val mockNode = mockk<TreeNode> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = repeatWhen({ true }, 10) {
@@ -85,6 +85,6 @@ internal class RepeatWhenTests {
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
-        verify(exactly = 10) { mockNode.execute(any()) }
+        verify(exactly = 10) { mockNode.execute() }
     }
 }

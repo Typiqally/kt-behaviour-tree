@@ -1,6 +1,5 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.TreeNodeResult
 
 /**
@@ -11,12 +10,12 @@ import com.tpcly.behaviourtree.TreeNodeResult
  */
 class Gate(
     name: String,
-    val predicate: (blackboard: Blackboard) -> Boolean,
+    val predicate: () -> Boolean,
     child: TreeNode
 ) : Decorator(name, child) {
-    override fun execute(blackboard: Blackboard): TreeNodeResult {
-        if (predicate(blackboard)) {
-            val result = child.execute(blackboard)
+    override fun execute(): TreeNodeResult {
+        if (predicate()) {
+            val result = child.execute()
             return TreeNodeResult(this, result.status, listOf(result))
         }
 

@@ -1,6 +1,5 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.ExecutionOrder
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
@@ -14,7 +13,7 @@ class Sequence(
     name: String,
     private val order: ExecutionOrder
 ) : Composite(name) {
-    override fun execute(blackboard: Blackboard): TreeNodeResult {
+    override fun execute(): TreeNodeResult {
         val children = if (order == ExecutionOrder.RANDOM) {
             children.shuffled()
         } else {
@@ -24,7 +23,7 @@ class Sequence(
         val results = mutableListOf<TreeNodeResult>()
 
         for (child in children) {
-            val result = child.execute(blackboard)
+            val result = child.execute()
             results.add(result)
 
             if (result.status == Status.FAILURE || result.status == Status.ABORT) {

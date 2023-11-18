@@ -1,6 +1,5 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
@@ -15,12 +14,12 @@ class RepeatWhen(
     private val limit: Int,
     child: TreeNode
 ) : Decorator(name, child) {
-    override fun execute(blackboard: Blackboard): TreeNodeResult {
+    override fun execute(): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
         var iteration = 0
 
         while (continueCondition() && iteration < limit) {
-            val result = child.execute(blackboard)
+            val result = child.execute()
             results.add(result)
 
             if (result.status == Status.ABORT) {

@@ -1,6 +1,5 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.TreeNodeResult
 
 /**
@@ -16,5 +15,5 @@ interface TreeNode {
      * Executes a certain behaviour of the node
      * @return the result of the execution, including relevant children results
      */
-    fun execute(blackboard: Blackboard = Blackboard()): TreeNodeResult
+    fun execute(): TreeNodeResult
 }

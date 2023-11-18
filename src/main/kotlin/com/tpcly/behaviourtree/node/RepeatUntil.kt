@@ -1,6 +1,5 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
@@ -18,13 +17,13 @@ class RepeatUntil(
     constructor(name: String, status: Status, limit: Int, child: TreeNode)
             : this(name, { it.status == status }, limit, child)
 
-    override fun execute(blackboard: Blackboard): TreeNodeResult {
+    override fun execute(): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
         var iteration = 0
 
         var result: TreeNodeResult
         do {
-            result = child.execute(blackboard)
+            result = child.execute()
             results.add(result)
 
             iteration++
