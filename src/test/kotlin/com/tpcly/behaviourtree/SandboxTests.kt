@@ -1,16 +1,17 @@
 package com.tpcly.behaviourtree
 
-import com.tpcly.behaviourtree.sandbox.*
+import com.tpcly.behaviourtree.sandbox.RootModelSb
+import com.tpcly.behaviourtree.sandbox.actionSb
+import com.tpcly.behaviourtree.sandbox.compositeSb
+import com.tpcly.behaviourtree.sandbox.execute
 import kotlin.test.Test
 
 internal class SandboxTests {
 
     @Test
     fun testSandbox() {
-        val tree = compositeSb<RootModelSb> {
+        val tree = compositeSb {
             +actionSb { println("abc") }
-            +actionSb<ChildModelSb> { println("wow ${it.childData}") }
-            +actionNullableSb<ChildModelSb> { println("wow ${it?.childData}") }
             +compositeSb {
 
             }
@@ -20,6 +21,6 @@ internal class SandboxTests {
             override val childData: String = "someChildData"
         }
 
-        tree.execute(model)
+        tree.execute()
     }
 }
