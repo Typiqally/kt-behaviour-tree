@@ -7,13 +7,23 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property func, a unit which is executed as part of the action node
  */
-class Perform(
+class Perform<S>(
     override val name: String,
-    val func: () -> Unit
-) : Action(name) {
-    override fun execute(): TreeNodeResult {
-        func()
+    val func: (state: S) -> Unit
+) : Action<S>(name) {
+    override fun execute(state: S): TreeNodeResult<S> {
+        func(state)
         return TreeNodeResult.success(this)
     }
-
 }
+
+fun perform(
+    name: String = "",
+    func: (state: Any) -> Unit
+) = Perform(name, func)
+
+@JvmName("performWithState")
+fun <S> perform(
+    name: String = "",
+    func: (state: S) -> Unit
+) = Perform(name, func)

@@ -1,6 +1,8 @@
 package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
+import com.tpcly.behaviourtree.node.execute
+import com.tpcly.behaviourtree.node.gate
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -23,8 +25,8 @@ internal class GateTests {
 
     private fun testOpenGate(inputStatus: Status) {
         // Arrange
-        val mockNode = mockk<TreeNode> {
-            every { execute() } returns TreeNodeResult(this, inputStatus)
+        val mockNode = mockk<TreeNode<Any>> {
+            every { execute(any()) } returns TreeNodeResult(this, inputStatus)
         }
 
         val node = gate({ true }) {
@@ -36,13 +38,13 @@ internal class GateTests {
 
         // Assert
         assertEquals(inputStatus, result.status)
-        verify(exactly = 1) { mockNode.execute() }
+        verify(exactly = 1) { mockNode.execute(any()) }
     }
 
     @Test
     fun testClosedGate() {
         // Arrange
-        val mockNode = mockk<TreeNode> {
+        val mockNode = mockk<TreeNode<Any>> {
             every { execute() } returns TreeNodeResult(this, Status.SUCCESS)
         }
 
