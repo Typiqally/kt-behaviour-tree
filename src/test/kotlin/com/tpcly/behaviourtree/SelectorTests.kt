@@ -1,6 +1,6 @@
 package com.tpcly.behaviourtree
 
-import com.tpcly.behaviourtree.node.TreeNode
+import com.tpcly.behaviourtree.node.*
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -11,7 +11,7 @@ internal class SelectorTests {
     @Test
     fun testExecutionSuccess() {
         // Arrange
-        val mockNode = mockk<TreeNode> {
+        val mockNode = mockk<TreeNode<Any>> {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
@@ -30,7 +30,7 @@ internal class SelectorTests {
     @Test
     fun testExecutionFailure() {
         // Arrange
-        val mockNode = mockk<TreeNode> {
+        val mockNode = mockk<TreeNode<Any>> {
             every { execute(any()) } returns TreeNodeResult.failure(this)
         }
 
@@ -49,7 +49,7 @@ internal class SelectorTests {
     @Test
     fun testOrder() {
         // Arrange
-        val mockNode = mockk<TreeNode> {
+        val mockNode = mockk<TreeNode<Any>> {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
@@ -69,7 +69,7 @@ internal class SelectorTests {
     @Test
     fun testEarlyExit() {
         // Arrange
-        val mockNode = mockk<TreeNode> {
+        val mockNode = mockk<TreeNode<Any>> {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
@@ -90,7 +90,7 @@ internal class SelectorTests {
     @Test
     fun testAbort() {
         // Arrange
-        val mockNode = mockk<TreeNode> {
+        val mockNode = mockk<TreeNode<Any>> {
             every { execute(any()) } returns TreeNodeResult.failure(this)
         }
 

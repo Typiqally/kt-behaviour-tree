@@ -1,6 +1,9 @@
 package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
+import com.tpcly.behaviourtree.node.action
+import com.tpcly.behaviourtree.node.execute
+import com.tpcly.behaviourtree.node.repeatUntil
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -59,7 +62,7 @@ internal class RepeatUntilTests {
     @Test
     fun testLimit() {
         // Arrange
-        val mockNode = mockk<TreeNode> {
+        val mockNode = mockk<TreeNode<Any>> {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 

@@ -10,7 +10,7 @@ import com.tpcly.behaviourtree.BehaviourTreeDslMarker
  * @property child the child node which behaviour is modified by the decorator
  */
 @BehaviourTreeDslMarker
-abstract class Decorator(
+abstract class Decorator<S>(
     override val name: String,
-    val child: TreeNode
-) : TreeNode
+    val child: TreeNode<S>
+) : TreeNode<S>

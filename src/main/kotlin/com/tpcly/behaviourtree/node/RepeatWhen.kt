@@ -1,6 +1,5 @@
 package com.tpcly.behaviourtree.node
 
-import com.tpcly.behaviourtree.Blackboard
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
 
@@ -9,18 +8,18 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property continueCondition the condition which determines whether the loop executes
  */
-class RepeatWhen(
+class RepeatWhen<S>(
     name: String,
     private val continueCondition: () -> Boolean,
     private val limit: Int,
-    child: TreeNode
-) : Decorator(name, child) {
-    override fun execute(blackboard: Blackboard): TreeNodeResult {
-        val results = mutableListOf<TreeNodeResult>()
+    child: TreeNode<S>
+) : Decorator<S>(name, child) {
+    override fun execute(state: S): TreeNodeResult<S> {
+        val results = mutableListOf<TreeNodeResult<S>>()
         var iteration = 0
 
         while (continueCondition() && iteration < limit) {
-            val result = child.execute(blackboard)
+            val result = child.execute(state)
             results.add(result)
 
             if (result.status == Status.ABORT) {
@@ -39,3 +38,18 @@ class RepeatWhen(
         return TreeNodeResult(this, status, results)
     }
 }
+
+fun repeatWhen(
+    continueCondition: () -> Boolean,
+    limit: Int = 10,
+    name: String = "",
+    init: () -> TreeNode<Any>
+) = RepeatWhen(name, continueCondition, limit, init())
+
+@JvmName("repeatWhenWithState")
+fun <S> repeatWhen(
+    continueCondition: () -> Boolean,
+    limit: Int = 10,
+    name: String = "",
+    init: () -> TreeNode<S>
+) = RepeatWhen(name, continueCondition, limit, init())
