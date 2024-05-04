@@ -2,7 +2,6 @@ package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
 import com.tpcly.behaviourtree.node.action
-import com.tpcly.behaviourtree.node.execute
 import com.tpcly.behaviourtree.node.repeatUntil
 import io.mockk.every
 import io.mockk.mockk

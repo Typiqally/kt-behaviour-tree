@@ -9,11 +9,12 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property order the order in which the children should be executed
  */
-class Selector<S : Any>(
-    name: String,
-    private val order: ExecutionOrder
-) : Composite<S>(name) {
-    override fun execute(state: S): TreeNodeResult<S> {
+class Selector<S>(
+    override val name: String,
+    private val order: ExecutionOrder,
+    override val children: MutableList<TreeNode<S>> = mutableListOf()
+) : Composite<S> {
+    override fun execute(state: S?): TreeNodeResult<S> {
         val children = if (order == ExecutionOrder.RANDOM) {
             children.shuffled()
         } else {
@@ -35,15 +36,3 @@ class Selector<S : Any>(
     }
 }
 
-fun selector(
-    name: String = "",
-    executionOrder: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    init: Selector<Any>.() -> Unit
-) = initNode(Selector(name, executionOrder), init)
-
-@JvmName("selectorWithState")
-fun <S : Any> selector(
-    name: String = "",
-    executionOrder: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    init: Selector<S>.() -> Unit
-) = initNode(Selector(name, executionOrder), init)
