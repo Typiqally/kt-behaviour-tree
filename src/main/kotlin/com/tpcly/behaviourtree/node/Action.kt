@@ -13,7 +13,7 @@ import com.tpcly.behaviourtree.TreeNodeResult
 class Action<S>(
     override val name: String,
     val func: (state: S?) -> Status
-) : TreeNode<S> {
+) : Leaf<S> {
     override fun execute(state: S?): TreeNodeResult<S> {
         return TreeNodeResult(this, func(state))
     }
