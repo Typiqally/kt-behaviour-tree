@@ -9,21 +9,10 @@ import com.tpcly.behaviourtree.TreeNodeResult
  */
 class Perform<S>(
     override val name: String,
-    val func: (state: S) -> Unit
-) : Action<S>(name) {
-    override fun execute(state: S): TreeNodeResult<S> {
+    val func: (state: S?) -> Unit
+) : TreeNode<S> {
+    override fun execute(state: S?): TreeNodeResult<S> {
         func(state)
         return TreeNodeResult.success(this)
     }
 }
-
-fun perform(
-    name: String = "",
-    func: (state: Any) -> Unit
-) = Perform(name, func)
-
-@JvmName("performWithState")
-fun <S> perform(
-    name: String = "",
-    func: (state: S) -> Unit
-) = Perform(name, func)

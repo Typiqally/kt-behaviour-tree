@@ -9,16 +9,14 @@ import com.tpcly.behaviourtree.BehaviourTreeDslMarker
  * @property name a descriptive name of the composites' usage
  */
 @BehaviourTreeDslMarker
-abstract class Composite<in S : Any>(override val name: String) : TreeNode<S> {
-    internal val children = mutableListOf<TreeNode<Any>>()
+sealed interface Composite<S> : TreeNode<S> {
+    val children: MutableList<TreeNode<S>>
 
-    @Suppress("UNCHECKED_CAST")
-    operator fun TreeNode<@UnsafeVariance S>.unaryPlus() {
-        children += this as TreeNode<Any>
+    operator fun TreeNode<S>.unaryPlus() {
+        children += this
     }
 
-    @Suppress("UNCHECKED_CAST")
-    operator fun TreeNode<@UnsafeVariance S>.unaryMinus() {
-        children -= this as TreeNode<Any>
+    operator fun TreeNode<S>.unaryMinus() {
+        children -= this
     }
 }

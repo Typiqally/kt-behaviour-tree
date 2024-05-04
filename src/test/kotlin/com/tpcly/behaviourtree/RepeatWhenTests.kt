@@ -1,6 +1,9 @@
 package com.tpcly.behaviourtree
 
-import com.tpcly.behaviourtree.node.*
+import com.tpcly.behaviourtree.node.TreeNode
+import com.tpcly.behaviourtree.node.action
+import com.tpcly.behaviourtree.node.perform
+import com.tpcly.behaviourtree.node.repeatWhen
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -12,7 +15,7 @@ internal class RepeatWhenTests {
     fun testStatus() {
         // Arrange
         var count = 0
-        val node = repeatWhen({ count != 3 }) {
+        val node = repeatWhen(condition = { count != 3 }) {
             perform {
                 count++
             }
@@ -33,7 +36,7 @@ internal class RepeatWhenTests {
             every { execute() } returns TreeNodeResult.failure(this)
         }
 
-        val node = repeatWhen({ false }) {
+        val node = repeatWhen(condition = { false }) {
             mockNode
         }
 
@@ -49,7 +52,7 @@ internal class RepeatWhenTests {
     fun testAbort() {
         // Arrange
         var count = 0
-        val node = repeatWhen({ true }) {
+        val node = repeatWhen(condition = { true }) {
             action {
                 when (count) {
                     3 -> Status.ABORT
@@ -76,7 +79,7 @@ internal class RepeatWhenTests {
             every { execute(any()) } returns TreeNodeResult.success(this)
         }
 
-        val node = repeatWhen({ true }, 10) {
+        val node = repeatWhen(condition = { true }, limit = 10) {
             mockNode
         }
 

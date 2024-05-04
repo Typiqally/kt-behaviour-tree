@@ -1,7 +1,6 @@
 package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
-import com.tpcly.behaviourtree.node.execute
 import com.tpcly.behaviourtree.node.succeeder
 import io.mockk.every
 import io.mockk.mockk

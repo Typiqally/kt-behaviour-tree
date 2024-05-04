@@ -2,7 +2,6 @@ package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
 import com.tpcly.behaviourtree.node.action
-import com.tpcly.behaviourtree.node.execute
 import com.tpcly.behaviourtree.node.sequence
 import io.mockk.every
 import io.mockk.mockk
@@ -78,7 +77,7 @@ internal class SequenceTests {
 
         val node = sequence {
             +mockNode
-            +sequence { +action { Status.FAILURE } }
+            +sequence { +action<Any> { Status.FAILURE } }
             +mockNode
         }
 

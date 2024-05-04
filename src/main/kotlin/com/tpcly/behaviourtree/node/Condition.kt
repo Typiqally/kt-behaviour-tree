@@ -10,9 +10,9 @@ import com.tpcly.behaviourtree.TreeNodeResult
  */
 class Condition<S>(
     override val name: String,
-    val predicate: (state: S) -> Boolean
-) : Action<S>(name) {
-    override fun execute(state: S): TreeNodeResult<S> {
+    val predicate: (state: S?) -> Boolean
+) : TreeNode<S> {
+    override fun execute(state: S?): TreeNodeResult<S> {
         val status = when (predicate(state)) {
             true -> Status.SUCCESS
             false -> Status.FAILURE
@@ -21,14 +21,3 @@ class Condition<S>(
         return TreeNodeResult(this, status)
     }
 }
-
-fun condition(
-    name: String = "",
-    predicate: (state: Any) -> Boolean
-) = Condition(name, predicate)
-
-@JvmName("conditionWithState")
-fun <S> condition(
-    name: String = "",
-    predicate: (state: S) -> Boolean
-) = Condition(name, predicate)
