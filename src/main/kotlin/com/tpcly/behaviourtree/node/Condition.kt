@@ -11,7 +11,7 @@ import com.tpcly.behaviourtree.TreeNodeResult
 class Condition<S>(
     override val name: String,
     val predicate: (state: S?) -> Boolean
-) : TreeNode<S> {
+) : Leaf<S> {
     override fun execute(state: S?): TreeNodeResult<S> {
         val status = when (predicate(state)) {
             true -> Status.SUCCESS
