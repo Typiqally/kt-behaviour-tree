@@ -8,13 +8,14 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property predicate the predicate which determines whether the gate is open or closed
  */
-class Gate<S>(
+abstract class Gate<S>(
     override val name: String,
-    val predicate: () -> Boolean,
     override val child: TreeNode<S>
 ) : Decorator<S> {
+    abstract fun validate(state: S?): Boolean
+
     override fun execute(state: S?): TreeNodeResult<S> {
-        if (predicate()) {
+        if (validate(state)) {
             val result = child.execute(state)
             return TreeNodeResult(this, result.status, listOf(result))
         }

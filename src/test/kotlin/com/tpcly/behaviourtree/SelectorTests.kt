@@ -75,7 +75,7 @@ internal class SelectorTests {
 
         val node = selector {
             +mockNode
-            +selector { +action { Status.FAILURE } }
+            +selector { +com.tpcly.behaviourtree.node.run { Status.FAILURE } }
             +mockNode
         }
 
@@ -97,7 +97,7 @@ internal class SelectorTests {
         val node = selector {
             +mockNode
             +sequence {
-                +action { Status.ABORT }
+                +com.tpcly.behaviourtree.node.run { Status.ABORT }
                 +mockNode
             }
             +mockNode
