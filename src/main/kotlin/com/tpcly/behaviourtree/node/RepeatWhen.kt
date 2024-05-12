@@ -8,17 +8,18 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property predicate the condition which determines whether the loop executes
  */
-class RepeatWhen<S>(
+abstract class RepeatWhen<S>(
     override val name: String,
-    private val predicate: () -> Boolean,
     private val limit: Int,
     override val child: TreeNode<S>
 ) : Decorator<S> {
+    abstract fun validate(state: S?): Boolean
+
     override fun execute(state: S?): TreeNodeResult<S> {
         val results = mutableListOf<TreeNodeResult<S>>()
         var iteration = 0
 
-        while (predicate() && iteration < limit) {
+        while (validate(state) && iteration < limit) {
             val result = child.execute(state)
             results.add(result)
 

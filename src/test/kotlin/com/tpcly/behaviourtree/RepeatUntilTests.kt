@@ -1,7 +1,6 @@
 package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
-import com.tpcly.behaviourtree.node.action
 import com.tpcly.behaviourtree.node.repeatUntil
 import io.mockk.every
 import io.mockk.mockk
@@ -15,7 +14,7 @@ internal class RepeatUntilTests {
         // Arrange
         var count = 0
         val node = repeatUntil(Status.SUCCESS) {
-            action {
+            com.tpcly.behaviourtree.node.run {
                 when (count) {
                     3 -> Status.SUCCESS
                     else -> {
@@ -39,7 +38,7 @@ internal class RepeatUntilTests {
         // Arrange
         var count = 0
         val node = repeatUntil(Status.SUCCESS) {
-            action {
+            com.tpcly.behaviourtree.node.run {
                 when (count) {
                     3 -> Status.ABORT
                     else -> {

@@ -7,55 +7,71 @@ import com.tpcly.behaviourtree.TreeNodeResult
 /**
  * Leaf nodes
  */
-fun <S> action(
+fun <S> run(
     name: String = "",
     func: (state: S?) -> Status
-) = Action(name, func)
+) = object : Action<S>(name) {
+    override fun run(state: S?): Status = func(state)
+}
 
 @JvmName("voidAction")
-fun action(
+fun run(
     name: String = "",
-    func: (state: Unit?) -> Status
-) = Action(name, func)
+    func: () -> Status
+) = object : Action<Unit>(name) {
+    override fun run(state: Unit?): Status = func()
+}
 
 fun <S> condition(
     name: String = "",
-    predicate: (state: S?) -> Boolean
-) = Condition(name, predicate)
+    validate: (state: S?) -> Boolean
+) = object : Condition<S>(name) {
+    override fun validate(state: S?): Boolean = validate(state)
+}
 
 @JvmName("voidCondition")
 fun condition(
     name: String = "",
-    predicate: (state: Unit?) -> Boolean
-) = Condition(name, predicate)
+    validate: () -> Boolean
+) = object : Condition<Unit>(name) {
+    override fun validate(state: Unit?): Boolean = validate()
+}
 
 
 fun <S> perform(
     name: String = "",
-    func: (state: S?) -> Unit
-) = Perform(name, func)
+    action: (state: S?) -> Unit
+) = object : Perform<S>(name) {
+    override fun run(state: S?) = action(state)
+}
 
 @JvmName("voidPerform")
 fun perform(
     name: String = "",
-    func: (state: Unit?) -> Unit
-) = Perform(name, func)
+    action: () -> Unit
+) = object : Perform<Unit>(name) {
+    override fun run(state: Unit?) = action()
+}
 
 /**
  * Decorator nodes
  */
 fun <S> gate(
     name: String = "",
-    validate: () -> Boolean,
+    validate: (state: S?) -> Boolean,
     init: () -> TreeNode<S>
-) = Gate(name, validate, init())
+) = object : Gate<S>(name, init()) {
+    override fun validate(state: S?): Boolean = validate(state)
+}
 
 @JvmName("voidGate")
 fun gate(
     name: String = "",
     validate: () -> Boolean,
     init: () -> TreeNode<Unit>
-) = Gate(name, validate, init())
+) = object : Gate<Unit>(name, init()) {
+    override fun validate(state: Unit?): Boolean = validate()
+}
 
 fun <S> inverter(
     name: String = "",
@@ -81,40 +97,50 @@ fun succeeder(
 
 fun <S> repeatWhen(
     name: String = "",
-    condition: () -> Boolean,
+    validate: (state: S?) -> Boolean,
     limit: Int = 10,
     init: () -> TreeNode<S>
-) = RepeatWhen(name, condition, limit, init())
+) = object : RepeatWhen<S>(name, limit, init()) {
+    override fun validate(state: S?): Boolean = validate(state)
+}
 
 @JvmName("voidRepeatWhen")
 fun repeatWhen(
     name: String = "",
-    condition: () -> Boolean,
+    validate: () -> Boolean,
     limit: Int = 10,
     init: () -> TreeNode<Unit>
-) = RepeatWhen(name, condition, limit, init())
+) = object : RepeatWhen<Unit>(name, limit, init()) {
+    override fun validate(state: Unit?): Boolean = validate()
+}
 
 fun <S> repeatUntil(
-    predicate: (TreeNodeResult<S>) -> Boolean,
+    validate: (TreeNodeResult<S>) -> Boolean,
     limit: Int = 10,
     name: String = "",
     init: () -> TreeNode<S>
-) = RepeatUntil(name, predicate, limit, init())
+) = object : RepeatUntil<S>(name, limit, init()) {
+    override fun validate(result: TreeNodeResult<S>): Boolean = validate(result)
+}
 
 @JvmName("voidRepeatUntil")
 fun repeatUntil(
-    predicate: (TreeNodeResult<Unit>) -> Boolean,
+    validate: (TreeNodeResult<Unit>) -> Boolean,
     limit: Int = 10,
     name: String = "",
     init: () -> TreeNode<Unit>
-) = RepeatUntil(name, predicate, limit, init())
+) = object : RepeatUntil<Unit>(name, limit, init()) {
+    override fun validate(result: TreeNodeResult<Unit>): Boolean = validate(result)
+}
 
 fun <S> repeatUntil(
     status: Status,
     limit: Int = 10,
     name: String = "",
     init: () -> TreeNode<S>
-) = RepeatUntil(name, status, limit, init())
+) = object : RepeatUntil<S>(name, limit, init()) {
+    override fun validate(result: TreeNodeResult<S>): Boolean = result.status == status
+}
 
 @JvmName("voidRepeatUntil")
 fun repeatUntil(
@@ -122,7 +148,9 @@ fun repeatUntil(
     limit: Int = 10,
     name: String = "",
     init: () -> TreeNode<Unit>
-) = RepeatUntil(name, status, limit, init())
+) = object : RepeatUntil<Unit>(name, limit, init()) {
+    override fun validate(result: TreeNodeResult<Unit>): Boolean = result.status == status
+}
 
 /**
  * Composite nodes

@@ -9,9 +9,9 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property order the order in which the children should be executed
  */
-class Sequence<S>(
+open class Sequence<S>(
     override val name: String,
-    private val order: ExecutionOrder,
+    private val order: ExecutionOrder = ExecutionOrder.IN_ORDER,
     override val children: MutableList<TreeNode<S>> = mutableListOf()
 ) : Composite<S> {
     override fun execute(state: S?): TreeNodeResult<S> {

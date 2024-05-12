@@ -8,14 +8,12 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property predicate the condition which determines when the loop terminates
  */
-class RepeatUntil<S>(
+abstract class RepeatUntil<S>(
     override val name: String,
-    private val predicate: (TreeNodeResult<S>) -> Boolean,
     private val limit: Int,
     override val child: TreeNode<S>
 ) : Decorator<S> {
-    constructor(name: String, status: Status, limit: Int, child: TreeNode<S>)
-            : this(name, { it.status == status }, limit, child)
+    abstract fun validate(result: TreeNodeResult<S>): Boolean
 
     override fun execute(state: S?): TreeNodeResult<S> {
         val results = mutableListOf<TreeNodeResult<S>>()
@@ -27,7 +25,7 @@ class RepeatUntil<S>(
             results.add(result)
 
             iteration++
-        } while (!predicate(result) && result.status != Status.ABORT && iteration < limit)
+        } while (!validate(result) && result.status != Status.ABORT && iteration < limit)
 
         val status = if (iteration >= limit) {
             Status.FAILURE
