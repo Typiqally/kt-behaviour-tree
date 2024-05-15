@@ -18,8 +18,8 @@ fun <S> run(
 fun run(
     name: String = "",
     func: () -> Status
-) = object : Action<Unit>(name) {
-    override fun run(state: Unit?): Status = func()
+) = object : Action<Any>(name) {
+    override fun run(state: Any?): Status = func()
 }
 
 fun <S> condition(
@@ -33,8 +33,8 @@ fun <S> condition(
 fun condition(
     name: String = "",
     validate: () -> Boolean
-) = object : Condition<Unit>(name) {
-    override fun validate(state: Unit?): Boolean = validate()
+) = object : Condition<Any>(name) {
+    override fun validate(state: Any?): Boolean = validate()
 }
 
 
@@ -49,8 +49,8 @@ fun <S> perform(
 fun perform(
     name: String = "",
     action: () -> Unit
-) = object : Perform<Unit>(name) {
-    override fun run(state: Unit?) = action()
+) = object : Perform<Any>(name) {
+    override fun run(state: Any?) = action()
 }
 
 /**
@@ -68,9 +68,9 @@ fun <S> gate(
 fun gate(
     name: String = "",
     validate: () -> Boolean,
-    init: () -> TreeNode<Unit>
-) = object : Gate<Unit>(name, init()) {
-    override fun validate(state: Unit?): Boolean = validate()
+    init: () -> TreeNode<Any>
+) = object : Gate<Any>(name, init()) {
+    override fun validate(state: Any?): Boolean = validate()
 }
 
 fun <S> inverter(
@@ -81,7 +81,7 @@ fun <S> inverter(
 @JvmName("voidInverter")
 fun inverter(
     name: String = "",
-    init: () -> TreeNode<Unit>
+    init: () -> TreeNode<Any>
 ) = Inverter(name, init())
 
 fun <S> succeeder(
@@ -92,7 +92,7 @@ fun <S> succeeder(
 @JvmName("voidSucceeder")
 fun succeeder(
     name: String = "",
-    init: () -> TreeNode<Unit>
+    init: () -> TreeNode<Any>
 ) = Succeeder(name, init())
 
 fun <S> repeatWhen(
@@ -109,9 +109,9 @@ fun repeatWhen(
     name: String = "",
     validate: () -> Boolean,
     limit: Int = 10,
-    init: () -> TreeNode<Unit>
-) = object : RepeatWhen<Unit>(name, limit, init()) {
-    override fun validate(state: Unit?): Boolean = validate()
+    init: () -> TreeNode<Any>
+) = object : RepeatWhen<Any>(name, limit, init()) {
+    override fun validate(state: Any?): Boolean = validate()
 }
 
 fun <S> repeatUntil(
@@ -125,12 +125,12 @@ fun <S> repeatUntil(
 
 @JvmName("voidRepeatUntil")
 fun repeatUntil(
-    validate: (TreeNodeResult<Unit>) -> Boolean,
+    validate: (TreeNodeResult<Any>) -> Boolean,
     limit: Int = 10,
     name: String = "",
-    init: () -> TreeNode<Unit>
-) = object : RepeatUntil<Unit>(name, limit, init()) {
-    override fun validate(result: TreeNodeResult<Unit>): Boolean = validate(result)
+    init: () -> TreeNode<Any>
+) = object : RepeatUntil<Any>(name, limit, init()) {
+    override fun validate(result: TreeNodeResult<Any>): Boolean = validate(result)
 }
 
 fun <S> repeatUntil(
@@ -147,9 +147,9 @@ fun repeatUntil(
     status: Status,
     limit: Int = 10,
     name: String = "",
-    init: () -> TreeNode<Unit>
-) = object : RepeatUntil<Unit>(name, limit, init()) {
-    override fun validate(result: TreeNodeResult<Unit>): Boolean = result.status == status
+    init: () -> TreeNode<Any>
+) = object : RepeatUntil<Any>(name, limit, init()) {
+    override fun validate(result: TreeNodeResult<Any>): Boolean = result.status == status
 }
 
 /**
@@ -165,7 +165,7 @@ fun <S> selector(
 fun selector(
     name: String = "",
     executionOrder: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    init: Selector<Unit>.() -> Unit
+    init: Selector<Any>.() -> Unit
 ) = initNode(Selector(name, executionOrder), init)
 
 fun <S> sequence(
@@ -178,7 +178,7 @@ fun <S> sequence(
 fun sequence(
     name: String = "",
     executionOrder: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    init: Sequence<Unit>.() -> Unit
+    init: Sequence<Any>.() -> Unit
 ) = initNode(Sequence(name, executionOrder), init)
 
 
