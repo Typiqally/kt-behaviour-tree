@@ -6,12 +6,12 @@ import com.tpcly.behaviourtree.TreeNodeResult
 /**
  * A decorator node that inverts the result from its child, success becomes failure and vice-versa
  */
-class Inverter<S>(
+class Inverter(
     override val name: String,
-    override val child: TreeNode<S>
-) : Decorator<S> {
-    override fun execute(state: S?): TreeNodeResult<S> {
-        val result = child.execute(state)
+    override val child: TreeNode
+) : Decorator {
+    override fun execute(): TreeNodeResult {
+        val result = child.execute()
         val status = when (result.status) {
             Status.SUCCESS -> Status.FAILURE
             Status.FAILURE -> Status.SUCCESS

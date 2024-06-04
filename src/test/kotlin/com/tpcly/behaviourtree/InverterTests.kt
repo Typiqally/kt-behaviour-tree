@@ -24,10 +24,9 @@ internal class InverterTests {
 
     private fun testExecution(inputStatus: Status, expectedOutputStatus: Status) {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
+        val mockNode = mockk<TreeNode> {
             every { execute() } returns TreeNodeResult(this, inputStatus)
         }
-
 
         val node = inverter {
             mockNode
@@ -36,7 +35,7 @@ internal class InverterTests {
         // Act
         val result = node.execute()
 
-        // Assert
+        // Asserts
         assertEquals(expectedOutputStatus, result.status)
         verify(exactly = 1) { mockNode.execute() }
     }

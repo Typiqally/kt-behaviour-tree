@@ -3,17 +3,15 @@ package com.tpcly.behaviourtree.node
 import com.tpcly.behaviourtree.TreeNodeResult
 
 /**
- * An action node which performs an action and always returns a successful result
- *
- * @property func, a unit which is executed as part of the action node
+ * An action node which performs an action and always returns a successful resul
  */
-abstract class Perform<S>(
+abstract class Perform(
     override val name: String
-) : Leaf<S> {
-    abstract fun run(state: S?)
+) : Leaf {
+    abstract fun run()
 
-    override fun execute(state: S?): TreeNodeResult<S> {
-        run(state)
+    override fun execute(): TreeNodeResult {
+        run()
         return TreeNodeResult.success(this)
     }
 }

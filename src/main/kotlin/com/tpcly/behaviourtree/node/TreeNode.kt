@@ -5,7 +5,7 @@ import com.tpcly.behaviourtree.TreeNodeResult
 /**
  * Interface for a node of an executable tree
  */
-interface TreeNode<in S> {
+interface TreeNode {
     /**
      * A descriptive name for the tree node
      */
@@ -15,5 +15,5 @@ interface TreeNode<in S> {
      * Executes a certain behaviour of the node
      * @return the result of the execution, including relevant children results
      */
-    fun execute(state: S? = null): TreeNodeResult<S>
+    fun execute(): TreeNodeResult
 }

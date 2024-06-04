@@ -13,8 +13,8 @@ internal class SelectorTests {
     @Test
     fun testExecutionSuccess() {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+        val mockNode = mockk<TreeNode> {
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = selector {
@@ -26,14 +26,14 @@ internal class SelectorTests {
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 
     @Test
     fun testExecutionFailure() {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
-            every { execute(any()) } returns TreeNodeResult.failure(this)
+        val mockNode = mockk<TreeNode> {
+            every { execute() } returns TreeNodeResult.failure(this)
         }
 
         val node = selector {
@@ -45,14 +45,14 @@ internal class SelectorTests {
 
         // Assert
         assertEquals(Status.FAILURE, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 
     @Test
     fun testOrder() {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+        val mockNode = mockk<TreeNode> {
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = selector {
@@ -65,14 +65,14 @@ internal class SelectorTests {
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 
     @Test
     fun testEarlyExit() {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
-            every { execute(any()) } returns TreeNodeResult.success(this)
+        val mockNode = mockk<TreeNode> {
+            every { execute() } returns TreeNodeResult.success(this)
         }
 
         val node = selector {
@@ -86,14 +86,14 @@ internal class SelectorTests {
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 
     @Test
     fun testAbort() {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
-            every { execute(any()) } returns TreeNodeResult.failure(this)
+        val mockNode = mockk<TreeNode> {
+            every { execute() } returns TreeNodeResult.failure(this)
         }
 
         val node = selector {
@@ -110,6 +110,6 @@ internal class SelectorTests {
 
         // Assert
         assertEquals(Status.ABORT, result.status)
-        verify(exactly = 1) { mockNode.execute(any()) }
+        verify(exactly = 1) { mockNode.execute() }
     }
 }
