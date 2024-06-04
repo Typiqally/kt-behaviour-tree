@@ -14,7 +14,7 @@ data class TreeNodeResult(
     val status: Status,
     val children: List<TreeNodeResult>? = null
 ) {
-    fun stackTrace(indent: Int = 0): Sequence<String> = sequence<String> {
+    fun stackTrace(indent: Int = 0): Sequence<String> = sequence {
         yield("${"\t".repeat(indent)}> ${origin.javaClass.simpleName} :${origin.name} ${status.name}")
 
         // Append children if they exist
