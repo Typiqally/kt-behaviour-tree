@@ -1,6 +1,6 @@
 package com.tpcly.behaviourtree
 
-import com.tpcly.behaviourtree.node.condition
+import com.tpcly.behaviourtree.node.conditional
 import com.tpcly.behaviourtree.node.perform
 import com.tpcly.behaviourtree.node.sequencer
 import kotlin.test.Test
@@ -22,10 +22,10 @@ internal class StateTests {
         // Arrange
         val state = MockDataClass("test_root", "test_child")
         val tree = sequencer {
-            +condition {
+            +conditional {
                 state.rootValue == "test_root"
             }
-            +condition {
+            +conditional {
                 state.childValue == "test_child"
             }
             +perform {

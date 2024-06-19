@@ -13,10 +13,10 @@ fun run(
     action: () -> Status,
 ) = Action(name, action)
 
-fun condition(
+fun conditional(
     name: String = "",
     validate: () -> Boolean,
-) =  Condition(name, validate)
+) =  Conditional(name, validate)
 
 fun perform(
     name: String = "",
