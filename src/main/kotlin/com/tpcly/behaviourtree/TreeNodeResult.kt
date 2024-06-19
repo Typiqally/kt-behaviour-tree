@@ -9,12 +9,12 @@ import com.tpcly.behaviourtree.node.TreeNode
  * @property status the status of the result
  * @property children the children of the result
  */
-data class TreeNodeResult<in S>(
-    val origin: TreeNode<S>,
+data class TreeNodeResult(
+    val origin: TreeNode,
     val status: Status,
-    val children: List<TreeNodeResult<S>>? = null
+    val children: List<TreeNodeResult>? = null
 ) {
-    fun stackTrace(indent: Int = 0): Sequence<String> = sequence<String> {
+    fun stackTrace(indent: Int = 0): Sequence<String> = sequence {
         yield("${"\t".repeat(indent)}> ${origin.javaClass.simpleName} :${origin.name} ${status.name}")
 
         // Append children if they exist
@@ -24,8 +24,8 @@ data class TreeNodeResult<in S>(
     }
 
     companion object {
-        fun <S> success(parent: TreeNode<S>, children: List<TreeNodeResult<S>>? = null) = TreeNodeResult(parent, Status.SUCCESS, children)
+        fun success(parent: TreeNode, children: List<TreeNodeResult>? = null) = TreeNodeResult(parent, Status.SUCCESS, children)
 
-        fun <S> failure(parent: TreeNode<S>, children: List<TreeNodeResult<S>>? = null) = TreeNodeResult(parent, Status.FAILURE, children)
+        fun failure(parent: TreeNode, children: List<TreeNodeResult>? = null) = TreeNodeResult(parent, Status.FAILURE, children)
     }
 }

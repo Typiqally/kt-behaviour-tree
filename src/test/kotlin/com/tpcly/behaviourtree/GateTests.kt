@@ -24,7 +24,7 @@ internal class GateTests {
 
     private fun testOpenGate(inputStatus: Status) {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
+        val mockNode = mockk<TreeNode> {
             every { execute() } returns TreeNodeResult(this, inputStatus)
         }
 
@@ -43,7 +43,7 @@ internal class GateTests {
     @Test
     fun testClosedGate() {
         // Arrange
-        val mockNode = mockk<TreeNode<Any>> {
+        val mockNode = mockk<TreeNode> {
             every { execute() } returns TreeNodeResult(this, Status.SUCCESS)
         }
 

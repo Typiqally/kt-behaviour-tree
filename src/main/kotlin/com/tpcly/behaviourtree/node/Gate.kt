@@ -5,18 +5,16 @@ import com.tpcly.behaviourtree.TreeNodeResult
 /**
  * A decorator node which executes its child only when a condition is met
  * Returns status of the child if executed, otherwise failure
- *
- * @property predicate the predicate which determines whether the gate is open or closed
  */
-abstract class Gate<S>(
+abstract class Gate(
     override val name: String,
-    override val child: TreeNode<S>
-) : Decorator<S> {
-    abstract fun validate(state: S?): Boolean
+    override val child: TreeNode
+) : Decorator {
+    abstract fun validate(): Boolean
 
-    override fun execute(state: S?): TreeNodeResult<S> {
-        if (validate(state)) {
-            val result = child.execute(state)
+    override fun execute(): TreeNodeResult {
+        if (validate()) {
+            val result = child.execute()
             return TreeNodeResult(this, result.status, listOf(result))
         }
 

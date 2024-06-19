@@ -20,12 +20,13 @@ internal class StateTests {
     @Test
     fun testStateHierarchy() {
         // Arrange
-        val tree = sequence<MockRootData> {
-            +condition<MockRootData> { state ->
-                state?.rootValue == "test_root"
+        val state = MockDataClass("test_root", "test_child")
+        val tree = sequence {
+            +condition {
+                state.rootValue == "test_root"
             }
-            +condition<MockChildDate> { state ->
-                state?.childValue == "test_child"
+            +condition {
+                state.childValue == "test_child"
             }
             +perform {
                 println("test")
@@ -33,7 +34,7 @@ internal class StateTests {
         }
 
         // Act
-        val result = tree.execute(MockDataClass("test_root", "test_child"))
+        val result = tree.execute()
 
         // Assert
         assertEquals(Status.SUCCESS, result.status)

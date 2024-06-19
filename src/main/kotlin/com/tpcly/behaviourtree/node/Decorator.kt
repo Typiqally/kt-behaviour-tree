@@ -10,6 +10,6 @@ import com.tpcly.behaviourtree.BehaviourTreeDslMarker
  * @property child the child node which behaviour is modified by the decorator
  */
 @BehaviourTreeDslMarker
-sealed interface Decorator<in S> : TreeNode<S> {
-    val child: TreeNode<S>
+sealed interface Decorator: TreeNode {
+    val child: TreeNode
 }
