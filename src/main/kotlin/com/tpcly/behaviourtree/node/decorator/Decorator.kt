@@ -1,6 +1,7 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree.node.decorator
 
 import com.tpcly.behaviourtree.BehaviourTreeDslMarker
+import com.tpcly.behaviourtree.node.TreeNode
 
 /**
  * This is an abstract class for a type of tree node called the decorator node

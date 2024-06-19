@@ -1,4 +1,4 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree.node.leaf
 
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult

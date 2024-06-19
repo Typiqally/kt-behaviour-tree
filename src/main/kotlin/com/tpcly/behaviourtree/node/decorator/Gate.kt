@@ -1,6 +1,7 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree.node.decorator
 
 import com.tpcly.behaviourtree.TreeNodeResult
+import com.tpcly.behaviourtree.node.TreeNode
 
 /**
  * A decorator node which executes its child only when a condition is met
