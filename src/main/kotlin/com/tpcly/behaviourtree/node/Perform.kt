@@ -5,13 +5,12 @@ import com.tpcly.behaviourtree.TreeNodeResult
 /**
  * An action node which performs an action and always returns a successful resul
  */
-abstract class Perform(
-    override val name: String
+open class Perform(
+    override val name: String,
+    val action: () -> Unit
 ) : Leaf {
-    abstract fun run()
-
     override fun execute(): TreeNodeResult {
-        run()
+        action()
         return TreeNodeResult.success(this)
     }
 }

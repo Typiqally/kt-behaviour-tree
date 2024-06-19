@@ -9,7 +9,7 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property order the order in which the children should be executed
  */
-class Selector(
+open class Selector(
     override val name: String,
     private val order: ExecutionOrder,
     override val children: MutableList<TreeNode> = mutableListOf()

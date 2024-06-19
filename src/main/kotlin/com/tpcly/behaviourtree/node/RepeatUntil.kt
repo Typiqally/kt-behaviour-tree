@@ -6,13 +6,12 @@ import com.tpcly.behaviourtree.TreeNodeResult
 /**
  * A decorator node that repeatedly executes its child until the specified condition is met
  */
-abstract class RepeatUntil(
+open class RepeatUntil(
     override val name: String,
     private val limit: Int,
-    override val child: TreeNode
+    override val child: TreeNode,
+    val validate: (result: TreeNodeResult) -> Boolean
 ) : Decorator {
-    abstract fun validate(result: TreeNodeResult): Boolean
-
     override fun execute(): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
         var iteration = 0
