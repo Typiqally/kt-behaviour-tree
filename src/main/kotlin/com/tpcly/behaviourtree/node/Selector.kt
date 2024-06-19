@@ -11,8 +11,8 @@ import com.tpcly.behaviourtree.TreeNodeResult
  */
 open class Selector(
     override val name: String,
-    private val order: ExecutionOrder,
-    override val children: MutableList<TreeNode> = mutableListOf()
+    private val order: ExecutionOrder = ExecutionOrder.IN_ORDER,
+    override val children: MutableList<TreeNode> = mutableListOf(),
 ) : Composite {
     override fun execute(): TreeNodeResult {
         val children = if (order == ExecutionOrder.RANDOM) {
