@@ -10,10 +10,11 @@ import com.tpcly.behaviourtree.TreeNodeResult
  *
  * @property name a descriptive name of the actions' usage
  */
-open class Action(
+abstract class Action(
     override val name: String,
-    val action: () -> Status
 ) : Leaf {
+    abstract fun action(): Status
+
     override fun execute(): TreeNodeResult {
         return TreeNodeResult(this, action())
     }

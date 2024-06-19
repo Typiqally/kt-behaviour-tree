@@ -11,17 +11,23 @@ import com.tpcly.behaviourtree.TreeNodeResult
 fun run(
     name: String = "",
     action: () -> Status,
-) = Action(name, action)
+) = object : Action(name) {
+    override fun action(): Status = action()
+}
 
 fun conditional(
     name: String = "",
     validate: () -> Boolean,
-) =  Conditional(name, validate)
+) = object : Conditional(name) {
+    override fun validate(): Boolean = validate()
+}
 
 fun perform(
     name: String = "",
     action: () -> Unit,
-) = Perform(name, action)
+) = object : Perform(name) {
+    override fun action() = action()
+}
 
 /**
  * Decorator nodes
