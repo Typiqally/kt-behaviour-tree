@@ -73,11 +73,11 @@ fun selector(
     init: Selector.() -> Unit,
 ) = initNode(Selector(name, executionOrder), init)
 
-fun sequence(
+fun sequencer(
     name: String = "",
     executionOrder: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    init: Sequence.() -> Unit,
-) = initNode(Sequence(name, executionOrder), init)
+    init: Sequencer.() -> Unit,
+) = initNode(Sequencer(name, executionOrder), init)
 
 internal fun <T : TreeNode> initNode(node: T, init: T.() -> Unit): T {
     node.init()
