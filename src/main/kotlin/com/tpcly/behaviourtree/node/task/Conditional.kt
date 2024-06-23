@@ -11,12 +11,5 @@ abstract class Conditional(
 ) : Task {
     abstract fun validate(): Boolean
 
-    override fun execute(): TreeNodeResult {
-        val status = when (validate()) {
-            true -> Status.SUCCESS
-            false -> Status.FAILURE
-        }
-
-        return TreeNodeResult(this, status)
-    }
+    override fun execute(): TreeNodeResult = TreeNodeResult(this, Status.fromCondition(validate()))
 }

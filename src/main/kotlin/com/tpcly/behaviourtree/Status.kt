@@ -7,5 +7,9 @@ enum class Status {
     SUCCESS,
     FAILURE,
     RUNNING,
-    ABORT
+    ABORT;
+
+    companion object {
+        fun fromCondition(condition: Boolean): Status = if (condition) SUCCESS else FAILURE
+    }
 }
