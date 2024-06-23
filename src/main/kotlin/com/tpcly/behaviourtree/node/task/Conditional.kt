@@ -1,4 +1,4 @@
-package com.tpcly.behaviourtree.node.leaf
+package com.tpcly.behaviourtree.node.task
 
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
@@ -8,7 +8,7 @@ import com.tpcly.behaviourtree.TreeNodeResult
  */
 abstract class Conditional(
     override val name: String,
-) : Leaf {
+) : Task {
     abstract fun validate(): Boolean
 
     override fun execute(): TreeNodeResult {

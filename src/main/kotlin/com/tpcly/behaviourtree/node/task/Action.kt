@@ -1,4 +1,4 @@
-package com.tpcly.behaviourtree.node.leaf
+package com.tpcly.behaviourtree.node.task
 
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
@@ -12,7 +12,7 @@ import com.tpcly.behaviourtree.TreeNodeResult
  */
 abstract class Action(
     override val name: String,
-) : Leaf {
+) : Task {
     abstract fun action(): Status
 
     override fun execute(): TreeNodeResult {
