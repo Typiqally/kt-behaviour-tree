@@ -15,7 +15,5 @@ abstract class Action(
 ) : Task {
     abstract fun action(): Status
 
-    override fun execute(): TreeNodeResult {
-        return TreeNodeResult(this, action())
-    }
+    override fun execute(): TreeNodeResult = TreeNodeResult(this, action())
 }
