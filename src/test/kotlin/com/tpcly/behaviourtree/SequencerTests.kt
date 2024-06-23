@@ -1,14 +1,14 @@
 package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
-import com.tpcly.behaviourtree.node.sequence
+import com.tpcly.behaviourtree.node.sequencer
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class SequenceTests {
+internal class SequencerTests {
     @Test
     fun testExecutionSuccess() {
         // Arrange
@@ -16,7 +16,7 @@ internal class SequenceTests {
             every { execute() } returns TreeNodeResult.success(this)
         }
 
-        val node = sequence {
+        val node = sequencer {
             +mockNode
         }
 
@@ -35,7 +35,7 @@ internal class SequenceTests {
             every { execute() } returns TreeNodeResult.failure(this)
         }
 
-        val node = sequence {
+        val node = sequencer {
             +mockNode
         }
 
@@ -54,7 +54,7 @@ internal class SequenceTests {
             every { execute() } returns TreeNodeResult.success(this)
         }
 
-        val node = sequence {
+        val node = sequencer {
             +mockNode
             +mockNode
         }
@@ -74,9 +74,9 @@ internal class SequenceTests {
             every { execute() } returns TreeNodeResult.success(this)
         }
 
-        val node = sequence {
+        val node = sequencer {
             +mockNode
-            +sequence { +com.tpcly.behaviourtree.node.run { Status.FAILURE } }
+            +sequencer { +com.tpcly.behaviourtree.node.run { Status.FAILURE } }
             +mockNode
         }
 
@@ -95,9 +95,9 @@ internal class SequenceTests {
             every { execute() } returns TreeNodeResult.success(this)
         }
 
-        val node = sequence {
+        val node = sequencer {
             +mockNode
-            +sequence {
+            +sequencer {
                 +mockNode
                 +com.tpcly.behaviourtree.node.run { Status.ABORT }
                 +mockNode

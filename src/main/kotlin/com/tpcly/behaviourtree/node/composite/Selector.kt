@@ -1,18 +1,19 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree.node.composite
 
 import com.tpcly.behaviourtree.ExecutionOrder
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
+import com.tpcly.behaviourtree.node.TreeNode
 
 /**
- * A composite node which executes its child nodes in order until one fails or all succeed, similar to an `and` operator
+ * A composite node which executes its child nodes in order until one succeeds or all fail, similar to an `or` operator
  *
  * @property order the order in which the children should be executed
  */
-open class Sequence(
+open class Selector(
     override val name: String,
     private val order: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    override val children: MutableList<TreeNode> = mutableListOf()
+    override val children: MutableList<TreeNode> = mutableListOf(),
 ) : Composite {
     override fun execute(): TreeNodeResult {
         val children = if (order == ExecutionOrder.RANDOM) {
@@ -27,11 +28,12 @@ open class Sequence(
             val result = child.execute()
             results.add(result)
 
-            if (result.status == Status.FAILURE || result.status == Status.ABORT) {
+            if (result.status == Status.SUCCESS || result.status == Status.ABORT) {
                 return TreeNodeResult(this, result.status, results)
             }
         }
 
-        return TreeNodeResult.success(this, results)
+        return TreeNodeResult.failure(this, results)
     }
 }
+

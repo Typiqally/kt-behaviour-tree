@@ -3,30 +3,35 @@ package com.tpcly.behaviourtree.node
 import com.tpcly.behaviourtree.ExecutionOrder
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
+import com.tpcly.behaviourtree.node.composite.Selector
+import com.tpcly.behaviourtree.node.composite.Sequencer
+import com.tpcly.behaviourtree.node.decorator.*
+import com.tpcly.behaviourtree.node.task.Action
+import com.tpcly.behaviourtree.node.task.Conditional
+import com.tpcly.behaviourtree.node.task.Perform
 
 /**
- * Leaf nodes
+ * Task nodes
  */
-
 fun run(
     name: String = "",
-    func: () -> Status
+    action: () -> Status,
 ) = object : Action(name) {
-    override fun run(): Status = func()
+    override fun action(): Status = action()
 }
 
-fun condition(
+fun conditional(
     name: String = "",
-    validate: () -> Boolean
-) = object : Condition(name) {
+    validate: () -> Boolean,
+) = object : Conditional(name) {
     override fun validate(): Boolean = validate()
 }
 
 fun perform(
     name: String = "",
-    action: () -> Unit
+    action: () -> Unit,
 ) = object : Perform(name) {
-    override fun run() = action()
+    override fun action() = action()
 }
 
 /**
@@ -35,47 +40,39 @@ fun perform(
 fun gate(
     name: String = "",
     validate: () -> Boolean,
-    init: () -> TreeNode
-) = object : Gate(name, init()) {
-    override fun validate(): Boolean = validate()
-}
+    init: () -> TreeNode,
+) = Gate(name, init(), validate)
 
 fun inverter(
     name: String = "",
-    init: () -> TreeNode
+    init: () -> TreeNode,
 ) = Inverter(name, init())
 
 fun succeeder(
     name: String = "",
-    init: () -> TreeNode
+    init: () -> TreeNode,
 ) = Succeeder(name, init())
 
 fun repeatWhen(
     name: String = "",
     validate: () -> Boolean,
     limit: Int = 10,
-    init: () -> TreeNode
-) = object : RepeatWhen(name, limit, init()) {
-    override fun validate(): Boolean = validate()
-}
+    init: () -> TreeNode,
+) = RepeatWhen(name, limit, init(), validate)
 
 fun repeatUntil(
     validate: (TreeNodeResult) -> Boolean,
     limit: Int = 10,
     name: String = "",
-    init: () -> TreeNode
-) = object : RepeatUntil(name, limit, init()) {
-    override fun validate(result: TreeNodeResult): Boolean = validate(result)
-}
+    init: () -> TreeNode,
+) = RepeatUntil(name, limit, init(), validate)
 
 fun repeatUntil(
     status: Status,
     limit: Int = 10,
     name: String = "",
-    init: () -> TreeNode
-) = object : RepeatUntil(name, limit, init()) {
-    override fun validate(result: TreeNodeResult): Boolean = result.status == status
-}
+    init: () -> TreeNode,
+) = RepeatUntil(name, limit, init()) { it.status == status }
 
 /**
  * Composite nodes
@@ -84,14 +81,14 @@ fun repeatUntil(
 fun selector(
     name: String = "",
     executionOrder: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    init: Selector.() -> Unit
+    init: Selector.() -> Unit,
 ) = initNode(Selector(name, executionOrder), init)
 
-fun sequence(
+fun sequencer(
     name: String = "",
     executionOrder: ExecutionOrder = ExecutionOrder.IN_ORDER,
-    init: Sequence.() -> Unit
-) = initNode(Sequence(name, executionOrder), init)
+    init: Sequencer.() -> Unit,
+) = initNode(Sequencer(name, executionOrder), init)
 
 internal fun <T : TreeNode> initNode(node: T, init: T.() -> Unit): T {
     node.init()

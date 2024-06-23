@@ -1,18 +1,18 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree.node.decorator
 
 import com.tpcly.behaviourtree.Status
 import com.tpcly.behaviourtree.TreeNodeResult
+import com.tpcly.behaviourtree.node.TreeNode
 
 /**
  * A decorator node that repeatedly executes its child if the specified condition is met
  */
-abstract class RepeatWhen(
+open class RepeatWhen(
     override val name: String,
     private val limit: Int,
-    override val child: TreeNode
+    override val child: TreeNode,
+    val validate: () -> Boolean
 ) : Decorator {
-    abstract fun validate(): Boolean
-
     override fun execute(): TreeNodeResult {
         val results = mutableListOf<TreeNodeResult>()
         var iteration = 0

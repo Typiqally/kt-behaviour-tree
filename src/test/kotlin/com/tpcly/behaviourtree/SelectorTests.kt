@@ -2,7 +2,7 @@ package com.tpcly.behaviourtree
 
 import com.tpcly.behaviourtree.node.TreeNode
 import com.tpcly.behaviourtree.node.selector
-import com.tpcly.behaviourtree.node.sequence
+import com.tpcly.behaviourtree.node.sequencer
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -98,7 +98,7 @@ internal class SelectorTests {
 
         val node = selector {
             +mockNode
-            +sequence {
+            +sequencer {
                 +com.tpcly.behaviourtree.node.run { Status.ABORT }
                 +mockNode
             }
