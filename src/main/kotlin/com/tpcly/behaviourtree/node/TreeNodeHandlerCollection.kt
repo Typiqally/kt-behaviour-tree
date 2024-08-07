@@ -14,9 +14,13 @@ class TreeNodeHandlerCollection(
 
     companion object {
         private val defaultHandlers = mapOf(
+            // Composite
             "sequencer" to Sequencer.Handler(),
             "selector" to Selector.Handler(),
-            "succeeder" to Succeeder.Handler()
+            // Decorators
+            "repeat_until" to RepeatUntil.Handler(),
+            "succeeder" to Succeeder.Handler(),
+            "inverter" to Inverter.Handler()
         )
     }
 }
