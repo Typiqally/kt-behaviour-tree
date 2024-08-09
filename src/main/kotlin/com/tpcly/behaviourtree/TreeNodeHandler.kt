@@ -1,4 +1,4 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree
 
 interface TreeNodeHandler<in T : TreeNode> {
     fun execute(

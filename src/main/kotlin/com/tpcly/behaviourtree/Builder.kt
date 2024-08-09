@@ -1,6 +1,4 @@
-package com.tpcly.behaviourtree.node
-
-import com.tpcly.behaviourtree.TreeExecutionOrder
+package com.tpcly.behaviourtree
 
 /**
  * Composite nodes

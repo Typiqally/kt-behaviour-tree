@@ -1,8 +1,6 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree
 
-class TreeNodeHandlerCollection(
-    handlers: Map<String, TreeNodeHandler<*>>,
-) {
+class TreeNodeHandlerCollection(handlers: Map<String, TreeNodeHandler<*>>) {
     private val allHandlers = handlers + defaultHandlers
 
     // Justification: TreeNodeHandler has a generic class constraint

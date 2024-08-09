@@ -1,4 +1,4 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree
 
 class TreeNodeCompositeBuilder {
     private val children: MutableList<TreeNode> = mutableListOf()

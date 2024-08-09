@@ -1,6 +1,5 @@
-package com.tpcly.behaviourtree.node
+package com.tpcly.behaviourtree
 
-import com.tpcly.behaviourtree.TreeExecutionOrder
 import kotlinx.serialization.Serializable
 
 @Serializable
