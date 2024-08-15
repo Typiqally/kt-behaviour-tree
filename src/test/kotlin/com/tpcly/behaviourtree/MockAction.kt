@@ -8,9 +8,9 @@ data class MockAction(
     val inputTwo: Int,
 ) : TreeNode {
     class Handler : TreeNodeHandler<MockAction> {
-        override fun execute(handlers: TreeNodeHandlerModule, descriptor: MockAction): TreeNodeHandler.Status {
+        override fun execute(handlers: TreeNodeHandlerModule, descriptor: MockAction): TreeNodeStatus {
             println("${descriptor.inputOne} ${descriptor.inputTwo}")
-            return TreeNodeHandler.Status.SUCCESS
+            return TreeNodeStatus.SUCCESS
         }
     }
 }

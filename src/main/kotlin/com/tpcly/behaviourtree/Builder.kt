@@ -27,7 +27,7 @@ fun inverter(init: () -> TreeNode) = Inverter(init())
 fun succeeder(init: () -> TreeNode) = Succeeder(init())
 
 fun repeatUntil(
-    status: TreeNodeHandler.Status = TreeNodeHandler.Status.SUCCESS,
+    status: TreeNodeStatus = TreeNodeStatus.SUCCESS,
     limit: Int = 10,
     init: () -> TreeNode,
 ) = RepeatUntil(init(), status, limit)

@@ -5,7 +5,7 @@ class TreeNodeHandlerModule(handlers: Map<String, TreeNodeHandler<*>>) {
 
     // Justification: TreeNodeHandler has a generic class constraint
     @Suppress("UNCHECKED_CAST")
-    fun execute(child: TreeNode): TreeNodeHandler.Status {
+    fun execute(child: TreeNode): TreeNodeStatus {
         val className = child.javaClass.name
         val handler = allHandlers[className] ?: throw NullPointerException("Node $className not found")
         val result = (handler as TreeNodeHandler<TreeNode>).execute(this, child)

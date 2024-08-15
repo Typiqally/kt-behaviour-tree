@@ -10,10 +10,10 @@ data class Inverter(
         override fun execute(
             handlers: TreeNodeHandlerModule,
             descriptor: Inverter,
-        ): TreeNodeHandler.Status {
+        ): TreeNodeStatus {
             return when (val result = handlers.execute(descriptor.child)) {
-                TreeNodeHandler.Status.SUCCESS -> TreeNodeHandler.Status.FAILURE
-                TreeNodeHandler.Status.FAILURE -> TreeNodeHandler.Status.SUCCESS
+                TreeNodeStatus.SUCCESS -> TreeNodeStatus.FAILURE
+                TreeNodeStatus.FAILURE -> TreeNodeStatus.SUCCESS
                 else -> result
             }
         }

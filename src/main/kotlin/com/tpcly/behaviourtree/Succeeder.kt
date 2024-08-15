@@ -10,9 +10,9 @@ data class Succeeder(
         override fun execute(
             handlers: TreeNodeHandlerModule,
             descriptor: Succeeder,
-        ): TreeNodeHandler.Status {
+        ): TreeNodeStatus {
             handlers.execute(descriptor.child)
-            return TreeNodeHandler.Status.SUCCESS
+            return TreeNodeStatus.SUCCESS
         }
     }
 }

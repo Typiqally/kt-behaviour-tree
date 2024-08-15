@@ -11,7 +11,7 @@ data class Selector(
         override fun execute(
             handlers: TreeNodeHandlerModule,
             descriptor: Selector,
-        ): TreeNodeHandler.Status {
+        ): TreeNodeStatus {
             val children = when (descriptor.executionOrder) {
                 TreeExecutionOrder.RANDOM -> descriptor.children.shuffled()
                 else -> descriptor.children
@@ -20,12 +20,12 @@ data class Selector(
             for (child in children) {
                 val result = handlers.execute(child)
 
-                if (result == TreeNodeHandler.Status.SUCCESS || result == TreeNodeHandler.Status.ABORT) {
+                if (result == TreeNodeStatus.SUCCESS || result == TreeNodeStatus.ABORT) {
                     return result
                 }
             }
 
-            return TreeNodeHandler.Status.FAILURE
+            return TreeNodeStatus.FAILURE
         }
     }
 }

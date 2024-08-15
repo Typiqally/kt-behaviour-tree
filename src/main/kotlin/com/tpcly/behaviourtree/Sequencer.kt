@@ -11,7 +11,7 @@ data class Sequencer(
         override fun execute(
             handlers: TreeNodeHandlerModule,
             descriptor: Sequencer,
-        ): TreeNodeHandler.Status {
+        ): TreeNodeStatus {
             val children = when (descriptor.executionOrder) {
                 TreeExecutionOrder.RANDOM -> descriptor.children.shuffled()
                 else -> descriptor.children
@@ -20,12 +20,12 @@ data class Sequencer(
             for (child in children) {
                 val result = handlers.execute(child)
 
-                if (result == TreeNodeHandler.Status.FAILURE || result == TreeNodeHandler.Status.ABORT) {
+                if (result == TreeNodeStatus.FAILURE || result == TreeNodeStatus.ABORT) {
                     return result
                 }
             }
 
-            return TreeNodeHandler.Status.SUCCESS
+            return TreeNodeStatus.SUCCESS
         }
     }
 }

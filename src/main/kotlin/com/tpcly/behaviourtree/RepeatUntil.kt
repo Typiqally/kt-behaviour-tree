@@ -5,25 +5,25 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RepeatUntil(
     override val child: TreeNode,
-    val targetStatus: TreeNodeHandler.Status = TreeNodeHandler.Status.SUCCESS,
+    val targetStatus: TreeNodeStatus = TreeNodeStatus.SUCCESS,
     val limit: Int = 10,
 ) : TreeNode.Decorator {
     class Handler : TreeNodeHandler<RepeatUntil> {
-        override fun execute(handlers: TreeNodeHandlerModule, descriptor: RepeatUntil): TreeNodeHandler.Status {
+        override fun execute(handlers: TreeNodeHandlerModule, descriptor: RepeatUntil): TreeNodeStatus {
             var iteration = 0
-            var currentStatus: TreeNodeHandler.Status
+            var currentStatus: TreeNodeStatus
 
             do {
                 currentStatus = handlers.execute(descriptor.child)
                 iteration++
             } while (
                 currentStatus != descriptor.targetStatus &&
-                currentStatus != TreeNodeHandler.Status.ABORT &&
+                currentStatus != TreeNodeStatus.ABORT &&
                 iteration < descriptor.limit
             )
 
             return when {
-                iteration >= descriptor.limit -> TreeNodeHandler.Status.FAILURE
+                iteration >= descriptor.limit -> TreeNodeStatus.FAILURE
                 else -> currentStatus
             }
         }
