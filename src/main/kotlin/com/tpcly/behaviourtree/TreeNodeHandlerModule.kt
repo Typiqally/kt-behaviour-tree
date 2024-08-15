@@ -5,20 +5,21 @@ class TreeNodeHandlerModule(handlers: Map<String, TreeNodeHandler<*>>) {
 
     // Justification: TreeNodeHandler has a generic class constraint
     @Suppress("UNCHECKED_CAST")
-    operator fun get(name: String): TreeNodeHandler<TreeNode> {
-        val handler = allHandlers[name] ?: throw NullPointerException("Node $name not found")
+    operator fun get(child: TreeNode): TreeNodeHandler<TreeNode> {
+        val className = child.javaClass.name
+        val handler = allHandlers[className] ?: throw NullPointerException("Node $className not found")
         return handler as TreeNodeHandler<TreeNode>
     }
 
     companion object {
         private val defaultHandlers = mapOf(
             // Composite
-            "sequencer" to Sequencer.Handler(),
-            "selector" to Selector.Handler(),
+            Sequencer::class.java.name to Sequencer.Handler(),
+            Selector::class.java.name to Selector.Handler(),
             // Decorators
-            "repeat_until" to RepeatUntil.Handler(),
-            "succeeder" to Succeeder.Handler(),
-            "inverter" to Inverter.Handler()
+            RepeatUntil::class.java.name to RepeatUntil.Handler(),
+            Succeeder::class.java.name to Succeeder.Handler(),
+            Inverter::class.java.name to Inverter.Handler()
         )
     }
 }

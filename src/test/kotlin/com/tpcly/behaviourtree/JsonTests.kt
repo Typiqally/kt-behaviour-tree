@@ -12,20 +12,20 @@ class JsonTests {
     fun testJson() {
         val tree = sequencer {
             +succeeder {
-                TestAction("test_1", 1337)
+                MockAction("test_1", 1337)
             }
             +repeatUntil {
-                TestAction("test_2", 69)
+                MockAction("test_2", 69)
             }
-            +TestAction("test_2", 69)
-            +TestAction("test_3", 420)
+            +MockAction("test_2", 69)
+            +MockAction("test_3", 420)
         }
 
         val json = Json {
             prettyPrint = true
             serializersModule = SerializersModule {
                 polymorphic(TreeNode::class) {
-                    subclass(TestAction::class)
+                    subclass(MockAction::class)
                     subclass(RepeatUntil::class)
                     subclass(Succeeder::class)
                 }

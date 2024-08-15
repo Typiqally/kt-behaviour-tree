@@ -3,15 +3,12 @@ package com.tpcly.behaviourtree
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TestAction(
+data class MockAction(
     val inputOne: String,
     val inputTwo: Int,
 ) : TreeNode {
-    override val name: String = "test"
-    override val description: String = "Test"
-
-    class Handler : TreeNodeHandler<TestAction> {
-        override fun execute(handlers: TreeNodeHandlerModule, descriptor: TestAction): TreeNodeHandler.Status {
+    class Handler : TreeNodeHandler<MockAction> {
+        override fun execute(handlers: TreeNodeHandlerModule, descriptor: MockAction): TreeNodeHandler.Status {
             println("${descriptor.inputOne} ${descriptor.inputTwo}")
             return TreeNodeHandler.Status.SUCCESS
         }

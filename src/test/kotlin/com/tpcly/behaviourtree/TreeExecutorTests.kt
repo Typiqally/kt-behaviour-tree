@@ -11,7 +11,7 @@ class TreeExecutorTests {
     @Test
     fun testSequencer() {
         val handlers = TreeNodeHandlerModule {
-            handler("test", TestAction.Handler())
+            handler(MockAction.Handler())
         }
 
         val json = Json {
@@ -19,9 +19,10 @@ class TreeExecutorTests {
             serializersModule = SerializersModule {
                 polymorphic(TreeNode::class) {
                     subclass(Sequencer::class)
+                    subclass(RepeatUntil::class)
                     subclass(Selector::class)
                     subclass(Succeeder::class)
-                    subclass(TestAction::class)
+                    subclass(MockAction::class)
                 }
             }
         }
@@ -29,24 +30,32 @@ class TreeExecutorTests {
         val tree= json.decodeFromString<TreeNode>(
             """
             {
-                "type": "com.tpcly.behaviourtree.node.Sequencer",
+                "type": "com.tpcly.behaviourtree.Sequencer",
                 "executionOrder": "IN_ORDER",
                 "children": [
                     {
-                        "type": "com.tpcly.behaviourtree.node.Succeeder",
+                        "type": "com.tpcly.behaviourtree.Succeeder",
                         "child": {
-                            "type": "com.tpcly.behaviourtree.TestAction",
+                            "type": "com.tpcly.behaviourtree.MockAction",
                             "inputOne": "test_1",
                             "inputTwo": 1337
                         }
                     },
                     {
-                        "type": "com.tpcly.behaviourtree.TestAction",
+                        "type": "com.tpcly.behaviourtree.RepeatUntil",
+                        "child": {
+                            "type": "com.tpcly.behaviourtree.MockAction",
+                            "inputOne": "test_2",
+                            "inputTwo": 69
+                        }
+                    },
+                    {
+                        "type": "com.tpcly.behaviourtree.MockAction",
                         "inputOne": "test_2",
                         "inputTwo": 69
                     },
                     {
-                        "type": "com.tpcly.behaviourtree.TestAction",
+                        "type": "com.tpcly.behaviourtree.MockAction",
                         "inputOne": "test_3",
                         "inputTwo": 420
                     }
@@ -69,7 +78,7 @@ class TreeExecutorTests {
 //        )
 
 
-        val rootHandler = handlers[tree.name]
+        val rootHandler = handlers[tree]
         rootHandler.execute(handlers, tree)
     }
 }

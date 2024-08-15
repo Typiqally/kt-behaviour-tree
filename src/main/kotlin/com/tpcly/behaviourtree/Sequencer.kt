@@ -7,9 +7,6 @@ data class Sequencer(
     val executionOrder: TreeExecutionOrder,
     override val children: List<TreeNode>,
 ) : TreeNode.Composite {
-    override val name: String = "sequencer"
-    override val description = "Executes its child nodes in order until one fails or all succeed, similar to an `and` operator"
-
     class Handler : TreeNodeHandler<Sequencer> {
         override fun execute(
             handlers: TreeNodeHandlerModule,
@@ -21,7 +18,7 @@ data class Sequencer(
             }
 
             for (child in children) {
-                val handler = handlers[child.name]
+                val handler = handlers[child]
                 val result = handler.execute(handlers, child)
 
                 if (result == TreeNodeHandler.Status.FAILURE || result == TreeNodeHandler.Status.ABORT) {

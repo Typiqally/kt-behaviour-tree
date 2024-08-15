@@ -1,9 +1,6 @@
 package com.tpcly.behaviourtree
 
 interface TreeNode {
-    val name: String
-    val description: String
-
     interface Composite : TreeNode {
         val children: List<TreeNode>
     }

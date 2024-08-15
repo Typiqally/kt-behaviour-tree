@@ -7,9 +7,6 @@ data class Selector(
     val executionOrder: TreeExecutionOrder,
     override val children: List<TreeNode>,
 ) : TreeNode.Composite {
-    override val name: String = "selector"
-    override val description = "Executes its child nodes in order until one succeeds or all fail, similar to an `or` operator"
-
     class Handler : TreeNodeHandler<Selector> {
         override fun execute(
             handlers: TreeNodeHandlerModule,
@@ -21,7 +18,7 @@ data class Selector(
             }
 
             for (child in children) {
-                val handler = handlers[child.name]
+                val handler = handlers[child]
                 val result = handler.execute(handlers, child)
 
                 if (result == TreeNodeHandler.Status.SUCCESS || result == TreeNodeHandler.Status.ABORT) {

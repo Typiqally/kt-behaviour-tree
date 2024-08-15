@@ -3,8 +3,8 @@ package com.tpcly.behaviourtree
 class TreeNodeHandlerModuleBuilder {
     val handlers: MutableMap<String, TreeNodeHandler<*>> = mutableMapOf()
 
-    fun <T : TreeNode> handler(name: String, handler: TreeNodeHandler<T>) {
-        handlers[name] = handler
+    inline fun <reified T : TreeNode> handler(handler: TreeNodeHandler<T>) {
+        handlers[T::class.java.name] = handler
     }
 
     internal fun build(): TreeNodeHandlerModule {
