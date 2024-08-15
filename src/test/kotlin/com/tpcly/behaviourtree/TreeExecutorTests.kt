@@ -10,11 +10,9 @@ class TreeExecutorTests {
 
     @Test
     fun testSequencer() {
-        val handlers = TreeNodeHandlerCollection(
-            mapOf(
-                "test" to TestAction.Handler()
-            )
-        )
+        val handlers = TreeNodeHandlerModule {
+            handler("test", TestAction.Handler())
+        }
 
         val json = Json {
             prettyPrint = true
@@ -71,7 +69,7 @@ class TreeExecutorTests {
 //        )
 
 
-        val rootHandler = handlers.get(tree.name)
+        val rootHandler = handlers[tree.name]
         rootHandler.execute(handlers, tree)
     }
 }

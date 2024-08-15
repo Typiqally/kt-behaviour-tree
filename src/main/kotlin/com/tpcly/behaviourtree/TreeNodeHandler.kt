@@ -2,7 +2,7 @@ package com.tpcly.behaviourtree
 
 interface TreeNodeHandler<in T : TreeNode> {
     fun execute(
-        handlers: TreeNodeHandlerCollection,
+        handlers: TreeNodeHandlerModule,
         descriptor: T,
     ): Status
 

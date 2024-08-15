@@ -12,7 +12,7 @@ data class RepeatUntil(
     override val description: String = ""
 
     class Handler : TreeNodeHandler<RepeatUntil> {
-        override fun execute(handlers: TreeNodeHandlerCollection, descriptor: RepeatUntil): TreeNodeHandler.Status {
+        override fun execute(handlers: TreeNodeHandlerModule, descriptor: RepeatUntil): TreeNodeHandler.Status {
             val handler = handlers[descriptor.child.name]
 
             var iteration = 0

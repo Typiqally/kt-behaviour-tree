@@ -11,7 +11,7 @@ data class TestAction(
     override val description: String = "Test"
 
     class Handler : TreeNodeHandler<TestAction> {
-        override fun execute(handlers: TreeNodeHandlerCollection, descriptor: TestAction): TreeNodeHandler.Status {
+        override fun execute(handlers: TreeNodeHandlerModule, descriptor: TestAction): TreeNodeHandler.Status {
             println("${descriptor.inputOne} ${descriptor.inputTwo}")
             return TreeNodeHandler.Status.SUCCESS
         }

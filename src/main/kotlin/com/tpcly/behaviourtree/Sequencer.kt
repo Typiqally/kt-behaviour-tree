@@ -12,7 +12,7 @@ data class Sequencer(
 
     class Handler : TreeNodeHandler<Sequencer> {
         override fun execute(
-            handlers: TreeNodeHandlerCollection,
+            handlers: TreeNodeHandlerModule,
             descriptor: Sequencer,
         ): TreeNodeHandler.Status {
             val children = when (descriptor.executionOrder) {

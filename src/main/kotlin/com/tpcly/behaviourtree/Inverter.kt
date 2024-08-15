@@ -11,7 +11,7 @@ data class Inverter(
 
     class Handler : TreeNodeHandler<Inverter> {
         override fun execute(
-            handlers: TreeNodeHandlerCollection,
+            handlers: TreeNodeHandlerModule,
             descriptor: Inverter,
         ): TreeNodeHandler.Status {
             val handler = handlers[descriptor.child.name]

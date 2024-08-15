@@ -12,7 +12,7 @@ data class Selector(
 
     class Handler : TreeNodeHandler<Selector> {
         override fun execute(
-            handlers: TreeNodeHandlerCollection,
+            handlers: TreeNodeHandlerModule,
             descriptor: Selector,
         ): TreeNodeHandler.Status {
             val children = when (descriptor.executionOrder) {

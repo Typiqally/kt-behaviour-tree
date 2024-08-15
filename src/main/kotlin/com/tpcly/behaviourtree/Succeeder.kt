@@ -11,7 +11,7 @@ data class Succeeder(
 
     class Handler : TreeNodeHandler<Succeeder> {
         override fun execute(
-            handlers: TreeNodeHandlerCollection,
+            handlers: TreeNodeHandlerModule,
             descriptor: Succeeder,
         ): TreeNodeHandler.Status {
             val handler = handlers[descriptor.child.name]
