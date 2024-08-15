@@ -11,8 +11,8 @@ data class Succeeder(
             handlers: TreeNodeHandlerModule,
             descriptor: Succeeder,
         ): TreeNodeHandler.Status {
-            val handler = handlers[descriptor.child]
-            return handler.execute(handlers, descriptor.child)
+            handlers.execute(descriptor.child)
+            return TreeNodeHandler.Status.SUCCESS
         }
     }
 }

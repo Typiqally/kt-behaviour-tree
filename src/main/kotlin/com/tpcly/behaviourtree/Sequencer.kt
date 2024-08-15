@@ -18,8 +18,7 @@ data class Sequencer(
             }
 
             for (child in children) {
-                val handler = handlers[child]
-                val result = handler.execute(handlers, child)
+                val result = handlers.execute(child)
 
                 if (result == TreeNodeHandler.Status.FAILURE || result == TreeNodeHandler.Status.ABORT) {
                     return result

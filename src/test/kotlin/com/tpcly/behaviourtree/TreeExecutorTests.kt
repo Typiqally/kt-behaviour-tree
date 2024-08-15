@@ -77,8 +77,6 @@ class TreeExecutorTests {
 //            )
 //        )
 
-
-        val rootHandler = handlers[tree]
-        rootHandler.execute(handlers, tree)
+        handlers.execute(tree)
     }
 }

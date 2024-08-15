@@ -11,8 +11,7 @@ data class Inverter(
             handlers: TreeNodeHandlerModule,
             descriptor: Inverter,
         ): TreeNodeHandler.Status {
-            val handler = handlers[descriptor.child]
-            return when (val result = handler.execute(handlers, descriptor.child)) {
+            return when (val result = handlers.execute(descriptor.child)) {
                 TreeNodeHandler.Status.SUCCESS -> TreeNodeHandler.Status.FAILURE
                 TreeNodeHandler.Status.FAILURE -> TreeNodeHandler.Status.SUCCESS
                 else -> result
