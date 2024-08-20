@@ -37,6 +37,8 @@ fun sequencer(
  */
 fun inverter(init: () -> TreeNode) = Inverter(init())
 
+fun TreeNode.inverted() = Inverter(this)
+
 fun succeeder(init: () -> TreeNode) = Succeeder(init())
 
 fun repeatUntil(
