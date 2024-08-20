@@ -1,6 +1,19 @@
 package com.tpcly.behaviourtree
 
 /**
+ * Pre-defined leaf nodes
+ * TODO: Somehow make these serializable
+ */
+fun action(execute: () -> TreeNodeStatus): TreeNode = object : TreeNode {
+    override fun execute(): TreeNodeStatus = execute()
+}
+
+fun conditional(validate: () -> Boolean): TreeNode = object : TreeNode {
+    override fun execute(): TreeNodeStatus = TreeNodeStatus.fromBoolean(validate())
+}
+
+
+/**
  * Composite nodes
  */
 fun selector(
