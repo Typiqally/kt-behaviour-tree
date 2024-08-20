@@ -7,25 +7,20 @@ data class Sequencer(
     val executionOrder: TreeExecutionOrder,
     override val children: List<TreeNode>,
 ) : TreeNode.Composite {
-    class Handler : TreeNodeHandler<Sequencer> {
-        override fun execute(
-            handlers: TreeNodeHandlerModule,
-            descriptor: Sequencer,
-        ): TreeNodeStatus {
-            val children = when (descriptor.executionOrder) {
-                TreeExecutionOrder.RANDOM -> descriptor.children.shuffled()
-                else -> descriptor.children
-            }
-
-            for (child in children) {
-                val result = handlers.execute(child)
-
-                if (result == TreeNodeStatus.FAILURE || result == TreeNodeStatus.ABORT) {
-                    return result
-                }
-            }
-
-            return TreeNodeStatus.SUCCESS
+    override fun execute(): TreeNodeStatus {
+        val children = when (executionOrder) {
+            TreeExecutionOrder.RANDOM -> children.shuffled()
+            else -> children
         }
+
+        for (child in children) {
+            val result = child.execute()
+
+            if (result == TreeNodeStatus.FAILURE || result == TreeNodeStatus.ABORT) {
+                return result
+            }
+        }
+
+        return TreeNodeStatus.SUCCESS
     }
 }

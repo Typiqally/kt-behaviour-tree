@@ -8,24 +8,22 @@ data class RepeatUntil(
     val targetStatus: TreeNodeStatus = TreeNodeStatus.SUCCESS,
     val limit: Int = 10,
 ) : TreeNode.Decorator {
-    class Handler : TreeNodeHandler<RepeatUntil> {
-        override fun execute(handlers: TreeNodeHandlerModule, descriptor: RepeatUntil): TreeNodeStatus {
-            var iteration = 0
-            var currentStatus: TreeNodeStatus
+    override fun execute(): TreeNodeStatus {
+        var iteration = 0
+        var currentStatus: TreeNodeStatus
 
-            do {
-                currentStatus = handlers.execute(descriptor.child)
-                iteration++
-            } while (
-                currentStatus != descriptor.targetStatus &&
-                currentStatus != TreeNodeStatus.ABORT &&
-                iteration < descriptor.limit
-            )
+        do {
+            currentStatus = child.execute()
+            iteration++
+        } while (
+            currentStatus != targetStatus &&
+            currentStatus != TreeNodeStatus.ABORT &&
+            iteration < limit
+        )
 
-            return when {
-                iteration >= descriptor.limit -> TreeNodeStatus.FAILURE
-                else -> currentStatus
-            }
+        return when {
+            iteration >= limit -> TreeNodeStatus.FAILURE
+            else -> currentStatus
         }
     }
 }

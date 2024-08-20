@@ -6,16 +6,11 @@ import kotlinx.serialization.Serializable
 data class Inverter(
     override val child: TreeNode,
 ) : TreeNode.Decorator {
-    class Handler : TreeNodeHandler<Inverter> {
-        override fun execute(
-            handlers: TreeNodeHandlerModule,
-            descriptor: Inverter,
-        ): TreeNodeStatus {
-            return when (val result = handlers.execute(descriptor.child)) {
-                TreeNodeStatus.SUCCESS -> TreeNodeStatus.FAILURE
-                TreeNodeStatus.FAILURE -> TreeNodeStatus.SUCCESS
-                else -> result
-            }
+    override fun execute(): TreeNodeStatus {
+        return when (val result = child.execute()) {
+            TreeNodeStatus.SUCCESS -> TreeNodeStatus.FAILURE
+            TreeNodeStatus.FAILURE -> TreeNodeStatus.SUCCESS
+            else -> result
         }
     }
 }

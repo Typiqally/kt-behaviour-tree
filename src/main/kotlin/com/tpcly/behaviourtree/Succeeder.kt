@@ -6,13 +6,8 @@ import kotlinx.serialization.Serializable
 data class Succeeder(
     override val child: TreeNode,
 ) : TreeNode.Decorator {
-    class Handler : TreeNodeHandler<Succeeder> {
-        override fun execute(
-            handlers: TreeNodeHandlerModule,
-            descriptor: Succeeder,
-        ): TreeNodeStatus {
-            handlers.execute(descriptor.child)
-            return TreeNodeStatus.SUCCESS
-        }
+    override fun execute(): TreeNodeStatus {
+        child.execute()
+        return TreeNodeStatus.SUCCESS
     }
 }

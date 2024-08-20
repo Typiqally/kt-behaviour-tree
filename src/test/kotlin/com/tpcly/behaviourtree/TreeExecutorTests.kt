@@ -10,10 +10,6 @@ class TreeExecutorTests {
 
     @Test
     fun testSequencer() {
-        val handlers = TreeNodeHandlerModule {
-            handler(MockAction.Handler())
-        }
-
         val json = Json {
             prettyPrint = true
             serializersModule = SerializersModule {
@@ -27,7 +23,7 @@ class TreeExecutorTests {
             }
         }
 
-        val tree= json.decodeFromString<TreeNode>(
+        val tree = json.decodeFromString<TreeNode>(
             """
             {
                 "type": "com.tpcly.behaviourtree.Sequencer",
@@ -77,6 +73,6 @@ class TreeExecutorTests {
 //            )
 //        )
 
-        handlers.execute(tree)
+        tree.execute()
     }
 }
