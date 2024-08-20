@@ -10,4 +10,12 @@ interface TreeNode {
     interface Decorator : TreeNode {
         val child: TreeNode
     }
+
+    interface Sub : TreeNode {
+        val tree: TreeNode
+
+        override fun execute(): TreeNodeStatus {
+            return tree.execute()
+        }
+    }
 }
