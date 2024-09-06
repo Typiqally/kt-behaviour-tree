@@ -1,6 +1,6 @@
 package com.tpcly.behaviourtree
 
-enum class ExecutionOrder {
+enum class TreeExecutionOrder {
     IN_ORDER,
     RANDOM
 }
