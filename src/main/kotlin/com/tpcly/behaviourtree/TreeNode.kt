@@ -12,10 +12,10 @@ interface TreeNode {
     }
 
     interface Sub : TreeNode {
-        val tree: TreeNode
+        val root: TreeNode
 
         override fun execute(): TreeNodeStatus {
-            return tree.execute()
+            return root.execute()
         }
     }
 }
